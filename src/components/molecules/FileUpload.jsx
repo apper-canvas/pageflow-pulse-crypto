@@ -160,11 +160,11 @@ const bookTitle = file.name.replace(/\.(pdf|epub)$/i, '');
     <div className={cn("space-y-4", className)}>
       {/* Drag and Drop Area */}
       <div
-        className={cn(
-          "relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-300 cursor-pointer",
+className={cn(
+          "relative border-2 border-dashed rounded-2xl p-10 text-center transition-all duration-300 cursor-pointer bg-gradient-to-br from-stone-50/50 to-gray-50/50 backdrop-blur-sm",
           dragActive 
-            ? "border-accent bg-accent/5 scale-105" 
-            : "border-gray-300 dark:border-gray-600 hover:border-accent hover:bg-accent/5",
+            ? "border-accent bg-accent/10 scale-105 shadow-xl" 
+            : "border-stone-300/60 dark:border-gray-600/60 hover:border-accent hover:bg-accent/5 hover:shadow-lg",
           uploading && "pointer-events-none opacity-75"
         )}
         onDragEnter={handleDrag}
@@ -228,12 +228,12 @@ const bookTitle = file.name.replace(/\.(pdf|epub)$/i, '');
 
       {/* Alternative Upload Button */}
       {!uploading && (
-        <div className="text-center">
+<div className="text-center">
           <Button 
             onClick={() => fileInputRef.current?.click()}
-            variant="outline"
+            variant="default"
             size="lg"
-            className="gap-2"
+            className="gap-3 bg-gradient-to-r from-stone-600 to-stone-700 hover:from-stone-700 hover:to-stone-800 text-white border-0 shadow-lg hover:shadow-xl"
           >
             <ApperIcon name="FolderOpen" className="w-5 h-5" />
             Choose Files

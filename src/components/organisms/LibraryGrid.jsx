@@ -63,7 +63,7 @@ const loadBooks = async () => {
     }
   };
 
-  const filteredBooks = books
+const filteredBooks = books
     .filter(book => 
       book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       book.author.toLowerCase().includes(searchQuery.toLowerCase())
@@ -73,10 +73,9 @@ const loadBooks = async () => {
         case "title":
           return a.title.localeCompare(b.title);
         case "author":
-case "recentlyAdded":
-          return new Date(b.uploadedAt) - new Date(a.uploadedAt);
-        case "author":
           return a.author.localeCompare(b.author);
+        case "recentlyAdded":
+          return new Date(b.uploadedAt) - new Date(a.uploadedAt);
         case "lastRead":
         default:
           const aLastRead = a.lastReadAt ? new Date(a.lastReadAt) : new Date(0);
@@ -95,26 +94,27 @@ case "recentlyAdded":
 
   if (books.length === 0) {
 return (
-<div className="min-h-screen bg-stone-50" style={{ backgroundColor: '#F8F6F0' }}>
+<div className="min-h-screen bg-gradient-to-br from-orange-50 via-stone-50 to-gray-100" style={{ background: 'linear-gradient(135deg, #FEF7ED 0%, #F9FAFB 50%, #F3F4F6 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <Empty 
+          <Empty
             title="Your Library is Empty"
             message="Start building your digital library by uploading your first book"
             actionText="Upload Books"
             onAction={() => setShowUpload(true)}
           />
           
-          {showUpload && (
+{showUpload && (
             <div className="mt-12 max-w-2xl mx-auto">
-              <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md border border-stone-200 dark:border-gray-700 p-8">
+              <div className="bg-white/70 dark:bg-dark-surface/70 backdrop-blur-sm rounded-2xl shadow-2xl border border-stone-200/50 dark:border-gray-700/50 p-8">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-serif font-bold text-stone-800 dark:text-dark-primary">
+                  <h2 className="text-2xl font-serif font-bold text-stone-800 dark:text-dark-primary">
                     Upload New Books
                   </h2>
                   <Button 
                     variant="ghost" 
                     size="sm"
                     onClick={() => setShowUpload(false)}
+                    className="hover:bg-stone-100/50 rounded-full"
                   >
                     <ApperIcon name="X" className="w-4 h-4" />
                   </Button>
@@ -129,56 +129,55 @@ return (
   }
 
 return (
-<div className="min-h-screen bg-stone-50" style={{ backgroundColor: '#F8F6F0' }}>
+<div className="min-h-screen bg-gradient-to-br from-orange-50 via-stone-50 to-gray-100" style={{ background: 'linear-gradient(135deg, #FEF7ED 0%, #F9FAFB 50%, #F3F4F6 100%)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-<div className="mb-12">
-            <div
-                className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10">
+<div className="mb-16">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-12">
                 <div>
-                    <h1
-                        className="text-3xl font-serif font-bold text-stone-800 dark:text-dark-primary mb-2">My Library
-                                      </h1>
-                    <p className="text-base text-stone-600 dark:text-dark-secondary">
+                    <h1 className="text-5xl font-serif font-bold text-stone-800 dark:text-dark-primary mb-3 tracking-tight">
+                        My Library
+                    </h1>
+                    <div className="h-1 w-16 bg-gradient-to-r from-stone-400 to-stone-300 rounded-full mb-4"></div>
+                    <p className="text-lg text-stone-600 dark:text-dark-secondary font-medium">
                         {books.length} {books.length === 1 ? "book" : "books"} in your collection
-                                      </p>
+                    </p>
                 </div>
-<Button
+                <Button
                     onClick={() => setShowUpload(!showUpload)}
-                    size="sm"
-                    className="gap-2 flex-shrink-0 bg-stone-300 hover:bg-stone-400 text-stone-700 hover:text-stone-800 px-4 py-2 text-sm rounded-md shadow-sm transition-colors">
-                    <ApperIcon name="Plus" className="w-4 h-4" />
-                    Upload Book
+                    size="lg"
+                    className="gap-3 flex-shrink-0 bg-gradient-to-r from-stone-600 to-stone-700 hover:from-stone-700 hover:to-stone-800 text-white px-6 py-3 text-base rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-0">
+                    <ApperIcon name="Upload" className="w-5 h-5" />
+                    Add Books
                 </Button>
             </div>
             {/* Upload Section */}
-{showUpload && <div
-                className="mb-10 p-6 bg-white dark:bg-dark-surface rounded-xl shadow-sm border border-stone-200 dark:border-gray-700">
-                <div className="flex items-center justify-between mb-4">
-                    <h2
-                        className="text-xl font-serif font-bold text-stone-800 dark:text-dark-primary">Upload New Books
-                                        </h2>
-                    <Button variant="ghost" size="sm" onClick={() => setShowUpload(false)}>
-                        <ApperIcon name="X" className="w-4 h-4" />
+{showUpload && <div className="mb-12 p-8 bg-white/70 dark:bg-dark-surface/70 backdrop-blur-sm rounded-2xl shadow-2xl border border-stone-200/50 dark:border-gray-700/50">
+                <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-2xl font-serif font-bold text-stone-800 dark:text-dark-primary">
+                        Upload New Books
+                    </h2>
+                    <Button variant="ghost" size="sm" onClick={() => setShowUpload(false)} className="hover:bg-stone-100/50 rounded-full">
+                        <ApperIcon name="X" className="w-5 h-5" />
                     </Button>
                 </div>
                 <FileUpload onUpload={handleUpload} />
             </div>}
 
-<div className="flex flex-col items-center gap-8 mb-12">
+<div className="flex flex-col items-center gap-8 mb-16">
                 <SearchBar
                     value={searchQuery}
                     onChange={setSearchQuery}
-                    className="w-full max-w-4xl px-4"
+                    className="w-full max-w-3xl"
                     placeholder="Search your library..." />
-                <div className="flex items-center gap-3">
-                    <span
-                        className="text-sm text-stone-600 dark:text-dark-secondary font-medium whitespace-nowrap">Sort by:
-                                    </span>
+                <div className="flex items-center gap-4 bg-white/50 dark:bg-dark-surface/50 backdrop-blur-sm rounded-2xl px-6 py-3 shadow-lg border border-stone-200/50">
+                    <span className="text-sm text-stone-600 dark:text-dark-secondary font-medium whitespace-nowrap">
+                        Sort by:
+                    </span>
                     <select
                         value={sortBy}
                         onChange={e => setSortBy(e.target.value)}
-                        className="bg-white dark:bg-dark-surface border border-stone-300 dark:border-gray-600 rounded-lg px-4 py-2 text-sm text-stone-800 dark:text-dark-primary focus:border-stone-500 focus:outline-none focus:ring-2 focus:ring-stone-500/20 shadow-sm">
+                        className="bg-transparent border-none text-sm text-stone-800 dark:text-dark-primary focus:outline-none font-medium cursor-pointer">
                         <option value="lastRead">Last Read</option>
                         <option value="title">Title</option>
                         <option value="author">Author</option>
@@ -204,8 +203,10 @@ return (
                                 </p>
                 <Button variant="ghost" onClick={() => setSearchQuery("")} className="mt-4">Show All Books
                                 </Button>
-</div> : <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 pb-12 px-4">
-                {filteredBooks.map(book => <BookCard key={book.Id} book={book} onDelete={handleDeleteBook} />)}
+</div> : <div className="max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 pb-16 px-4">
+                    {filteredBooks.map(book => <BookCard key={book.Id} book={book} onDelete={handleDeleteBook} />)}
+                </div>
             </div>}
 </div>
 </div>

@@ -21,7 +21,7 @@ const Slider = forwardRef(({
         value={value}
         onChange={(e) => onChange && onChange(parseInt(e.target.value))}
         className={cn(
-          "w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider",
+"w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full appearance-none cursor-pointer slider shadow-inner",
           "focus:outline-none focus:ring-2 focus:ring-accent/50",
           className
         )}

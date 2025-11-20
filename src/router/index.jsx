@@ -1,6 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import React, { Suspense, lazy } from "react";
+import Reader from "@/components/pages/Reader";
+import NotFound from "@/components/pages/NotFound";
+import Library from "@/components/pages/Library";
 import Layout from "@/components/organisms/Layout";
+
+// Lazy load page components
+const Library = lazy(() => import("@/components/pages/Library"));
+const Discover = lazy(() => import("@/components/pages/Discover"));
+const Bookmarks = lazy(() => import("@/components/pages/Bookmarks"));
+const Settings = lazy(() => import("@/components/pages/Settings"));
+const Help = lazy(() => import("@/components/pages/Help"));
+const Reader = lazy(() => import("@/components/pages/Reader"));
+const NotFound = lazy(() => import("@/components/pages/NotFound"));
 
 const Library = lazy(() => import("@/components/pages/Library"));
 const Reader = lazy(() => import("@/components/pages/Reader"));
@@ -24,6 +36,38 @@ const mainRoutes = [
     element: (
       <Suspense fallback={LoadingFallback}>
         <Library />
+      </Suspense>
+    ),
+  },
+  {
+    path: "discover",
+    element: (
+      <Suspense fallback={LoadingFallback}>
+        <Discover />
+      </Suspense>
+    ),
+  },
+  {
+    path: "bookmarks",
+    element: (
+      <Suspense fallback={LoadingFallback}>
+        <Bookmarks />
+      </Suspense>
+    ),
+  },
+  {
+    path: "settings",
+    element: (
+      <Suspense fallback={LoadingFallback}>
+        <Settings />
+      </Suspense>
+    ),
+  },
+  {
+    path: "help",
+    element: (
+      <Suspense fallback={LoadingFallback}>
+        <Help />
       </Suspense>
     ),
   },

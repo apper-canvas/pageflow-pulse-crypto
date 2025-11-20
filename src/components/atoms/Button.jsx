@@ -12,7 +12,7 @@ const Button = forwardRef(({
   const baseStyles = "inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
   
   const variants = {
-default: "bg-stone-600 hover:bg-stone-700 text-white focus:ring-stone-600/50",
+default: "bg-stone-500 hover:bg-stone-600 text-white focus:ring-stone-500/50",
     secondary: "bg-secondary hover:bg-gray-600 text-white focus:ring-secondary/50",
     ghost: "bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 text-primary dark:text-dark-primary focus:ring-primary/50",
     outline: "border border-secondary hover:bg-secondary hover:text-white text-secondary focus:ring-secondary/50"

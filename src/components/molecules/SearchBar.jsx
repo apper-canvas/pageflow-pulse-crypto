@@ -4,7 +4,7 @@ import Input from "@/components/atoms/Input";
 
 const SearchBar = ({ value, onChange, placeholder = "Search books...", className }) => {
   return (
-<div className={`relative ${className}`}>
+<div className={`relative ${className || ''}`}>
       <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
         <ApperIcon name="Search" className="w-5 h-5 text-secondary dark:text-dark-secondary" />
       </div>

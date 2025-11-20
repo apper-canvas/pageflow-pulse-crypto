@@ -78,7 +78,7 @@ async create(bookData) {
     await delay(400);
     const books = getStoredBooks();
     const maxId = books.length > 0 ? Math.max(...books.map(b => b.Id)) : 0;
-    const newBook = {
+const newBook = {
       Id: maxId + 1,
       ...bookData,
       currentPage: 1,

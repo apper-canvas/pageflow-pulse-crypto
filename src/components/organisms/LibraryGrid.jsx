@@ -95,7 +95,7 @@ case "recentlyAdded":
 
   if (books.length === 0) {
 return (
-      <div className="min-h-screen bg-background dark:bg-dark-background">
+<div className="min-h-screen bg-stone-50 dark:bg-dark-background" style={{ backgroundColor: '#F5F5DC' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Empty 
             title="Your Library is Empty"
@@ -106,9 +106,9 @@ return (
           
           {showUpload && (
             <div className="mt-12 max-w-2xl mx-auto">
-              <div className="bg-surface dark:bg-dark-surface rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-8">
+              <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md border border-stone-200 dark:border-gray-700 p-8">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-xl font-serif font-bold text-primary dark:text-dark-primary">
+                  <h2 className="text-xl font-serif font-bold text-stone-800 dark:text-dark-primary">
                     Upload New Books
                   </h2>
                   <Button 
@@ -129,33 +129,34 @@ return (
   }
 
 return (
-    <div className="min-h-screen bg-stone-50 dark:bg-dark-background">
+<div className="min-h-screen bg-stone-50 dark:bg-dark-background" style={{ backgroundColor: '#F5F5DC' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="mb-8">
+<div className="mb-8">
             <div
                 className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                 <div>
                     <h1
-                        className="text-4xl font-serif font-bold text-primary dark:text-dark-primary mb-2">My Library
+                        className="text-3xl font-serif font-bold text-stone-800 dark:text-dark-primary mb-2">My Library
                                       </h1>
-                    <p className="text-lg text-secondary dark:text-dark-secondary">
-                        {books.length} {books.length === 1 ? "book" : "books"}in your collection
+                    <p className="text-base text-stone-600 dark:text-dark-secondary">
+                        {books.length} {books.length === 1 ? "book" : "books"} in your collection
                                       </p>
                 </div>
-<Button
+                <Button
                     onClick={() => setShowUpload(!showUpload)}
                     size="sm"
-                    className="gap-2 flex-shrink-0 bg-stone-600 hover:bg-stone-700 text-white px-3 py-1.5 text-sm">
-                    <ApperIcon name="Plus" className="w-4 h-4" />Upload
+                    className="gap-2 flex-shrink-0 bg-stone-500 hover:bg-stone-600 text-white px-4 py-2 text-sm rounded-lg shadow-sm">
+                    <ApperIcon name="Plus" className="w-4 h-4" />
+                    Upload Book
                 </Button>
             </div>
             {/* Upload Section */}
 {showUpload && <div
-                className="mb-8 p-6 bg-white dark:bg-dark-surface rounded-xl shadow-sm border border-stone-200 dark:border-gray-700">
+                className="mb-8 p-6 bg-white dark:bg-dark-surface rounded-xl shadow-md border border-stone-200 dark:border-gray-700">
                 <div className="flex items-center justify-between mb-4">
                     <h2
-                        className="text-xl font-serif font-bold text-primary dark:text-dark-primary">Upload New Books
+                        className="text-xl font-serif font-bold text-stone-800 dark:text-dark-primary">Upload New Books
                                         </h2>
                     <Button variant="ghost" size="sm" onClick={() => setShowUpload(false)}>
                         <ApperIcon name="X" className="w-4 h-4" />
@@ -164,20 +165,20 @@ return (
                 <FileUpload onUpload={handleUpload} />
             </div>}
 
-            <div className="flex flex-col items-center gap-4 mb-8">
+<div className="flex flex-col items-center gap-6 mb-10">
                 <SearchBar
                     value={searchQuery}
                     onChange={setSearchQuery}
-                    className="w-full max-w-md"
-                    placeholder="Search by title or author..." />
-                <div className="flex items-center gap-2">
+                    className="w-full max-w-lg"
+                    placeholder="Search your library..." />
+                <div className="flex items-center gap-3">
                     <span
-                        className="text-sm text-secondary dark:text-dark-secondary font-medium whitespace-nowrap">Sort by:
+                        className="text-sm text-stone-600 dark:text-dark-secondary font-medium whitespace-nowrap">Sort by:
                                     </span>
                     <select
                         value={sortBy}
                         onChange={e => setSortBy(e.target.value)}
-                        className="bg-surface dark:bg-dark-surface border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm text-primary dark:text-dark-primary focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20">
+                        className="bg-white dark:bg-dark-surface border border-stone-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm text-stone-800 dark:text-dark-primary focus:border-stone-500 focus:outline-none focus:ring-2 focus:ring-stone-500/20">
                         <option value="lastRead">Last Read</option>
                         <option value="title">Title</option>
                         <option value="author">Author</option>
@@ -203,7 +204,7 @@ return (
                                 </p>
                 <Button variant="ghost" onClick={() => setSearchQuery("")} className="mt-4">Show All Books
                                 </Button>
-            </div> : <div className="grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+</div> : <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-8 pb-8">
                 {filteredBooks.map(book => <BookCard key={book.Id} book={book} onDelete={handleDeleteBook} />)}
             </div>}
         </div>

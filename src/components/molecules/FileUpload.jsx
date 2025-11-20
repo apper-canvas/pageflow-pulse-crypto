@@ -42,18 +42,25 @@ const validFiles = files.filter(file => {
       
       // Strict validation - only accept PDF or EPUB files
       if (!isValidType) {
-        toast.error(`${file.name} is not a valid book file. Only PDF and EPUB files are supported.`);
+        toast.error(`"${file.name}" is not a valid book file. Only PDF and EPUB files are supported.`);
         return false;
       }
       
       // Additional check to prevent image files from being processed as books
-      if (file.type.startsWith('image/')) {
-        toast.error(`${file.name} appears to be an image file. Please upload PDF or EPUB book files only.`);
+      if (file.type.startsWith('image/') || file.type.startsWith('video/') || file.type.startsWith('audio/')) {
+        toast.error(`"${file.name}" appears to be a media file. Please upload PDF or EPUB book files only.`);
+        return false;
+      }
+      
+      // Check for common non-book file types
+      const invalidTypes = ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      if (invalidTypes.includes(file.type)) {
+        toast.error(`"${file.name}" is not supported. Please convert to PDF or EPUB format first.`);
         return false;
       }
       
       if (file.size > 50 * 1024 * 1024) { // 50MB limit
-        toast.error(`${file.name} is too large. Please upload files smaller than 50MB.`);
+        toast.error(`"${file.name}" is too large. Please upload files smaller than 50MB.`);
         return false;
       }
       
@@ -93,10 +100,10 @@ const validFiles = files.filter(file => {
         };
         
 // Extract basic metadata
-        const bookData = {
+const bookData = {
           title: file.name.replace(/\.(pdf|epub)$/i, ''),
           author: "Unknown Author",
-          coverUrl: `https://images.unsplash.com/photo-1621351183012-e2f9972dd9bf?w=300&h=450&fit=crop&auto=format&q=80`,
+          coverUrl: "data:image/svg+xml,%3Csvg width='300' height='450' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='450' fill='%23f8f9fa'/%3E%3Cg transform='translate(150,225)'%3E%3Ctext x='0' y='-20' text-anchor='middle' font-family='serif' font-size='18' fill='%23666'%3EBook%3C/text%3E%3Ctext x='0' y='20' text-anchor='middle' font-family='serif' font-size='12' fill='%23999'%3ECover%3C/text%3E%3C/g%3E%3C/svg%3E",
           fileType,
           fileUrl: URL.createObjectURL(file),
           totalPages: Math.floor(Math.random() * 200) + 150,

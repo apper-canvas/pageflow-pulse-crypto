@@ -87,9 +87,9 @@ const validFiles = files.filter(file => {
         
         // Extract basic metadata
         const bookData = {
-          title: file.name.replace(/\.(pdf|epub)$/i, ''),
+title: file.name.replace(/\.(pdf|epub)$/i, ''),
           author: "Unknown Author",
-          coverUrl: `https://images.unsplash.com/photo-${Math.floor(Math.random() * 1000000000)}?w=300&h=400&fit=crop`,
+          coverUrl: `https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&h=450&fit=crop&auto=format&q=80`,
           fileType,
           fileUrl: URL.createObjectURL(file),
           totalPages: Math.floor(Math.random() * 200) + 150,

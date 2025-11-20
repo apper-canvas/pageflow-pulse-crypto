@@ -10,10 +10,10 @@ const SearchBar = ({ value, onChange, placeholder = "Search books...", className
       </div>
       <Input
         type="text"
-        placeholder={placeholder}
+placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="pl-10 pr-4"
+        className="pl-10 pr-4 rounded-full"
       />
       {value && (
         <button

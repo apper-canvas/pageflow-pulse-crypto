@@ -32,11 +32,11 @@ const defaultCover = `data:image/svg+xml,%3Csvg width='300' height='450' xmlns='
     e.target.src = defaultCover;
   };
   return (
-<div className="group book-card cursor-pointer h-full flex flex-col">
+<div className="group book-card cursor-pointer h-full flex flex-col bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
       <div onClick={handleOpenBook} className="block relative flex-1">
         {/* Book Cover */}
         <div
-            className="relative aspect-[2/3] w-full overflow-hidden rounded-xl shadow-md hover:shadow-lg bg-white dark:bg-dark-surface transition-all duration-300 border border-stone-200 dark:border-gray-600">
+className="relative aspect-[2/3] w-full overflow-hidden rounded-t-lg bg-white dark:bg-dark-surface transition-all duration-300">
             <img
                 src={book.coverUrl || defaultCover}
                 alt={`${book.title} cover`}
@@ -68,21 +68,20 @@ const defaultCover = `data:image/svg+xml,%3Csvg width='300' height='450' xmlns='
     </div>
     
     {/* Book Title and Author */}
-<div className="mt-4 space-y-2 flex-shrink-0">
+<div className="p-4 space-y-3 flex-grow flex flex-col">
         <h3
-            className="font-serif font-semibold text-base leading-tight text-stone-800 dark:text-dark-primary line-clamp-2 group-hover:text-stone-600 transition-colors duration-200">
+            className="font-serif font-bold text-base leading-tight text-stone-800 dark:text-dark-primary line-clamp-2 group-hover:text-stone-600 transition-colors duration-200">
             {book.title}
         </h3>
-        <p className="text-sm text-stone-500 dark:text-dark-secondary font-normal">
+        <p className="text-sm text-stone-500 dark:text-dark-secondary font-normal flex-grow">
             {book.author}
         </p>
-        
         {/* Progress Bar at bottom of card */}
 {book.currentPage > 0 && (
-          <div className="mt-3 pt-1">
-            <div className="w-full bg-stone-200 dark:bg-gray-700 rounded-full h-2">
+          <div className="mt-auto pt-2">
+            <div className="w-full bg-stone-200 dark:bg-gray-700 rounded-full h-3">
                 <div
-                    className="bg-stone-600 dark:bg-accent rounded-full h-2 transition-all duration-300"
+                    className="bg-stone-600 dark:bg-accent rounded-full h-3 transition-all duration-300"
                     style={{
                         width: `${progressPercentage}%`
                     }}

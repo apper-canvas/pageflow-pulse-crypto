@@ -95,7 +95,7 @@ case "recentlyAdded":
 
   if (books.length === 0) {
 return (
-<div className="min-h-screen" style={{ backgroundColor: '#F8F6F0' }}>
+<div className="min-h-screen bg-stone-50" style={{ backgroundColor: '#F8F6F0' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Empty 
             title="Your Library is Empty"
@@ -129,7 +129,7 @@ return (
   }
 
 return (
-<div className="min-h-screen" style={{ backgroundColor: '#F8F6F0' }}>
+<div className="min-h-screen bg-stone-50" style={{ backgroundColor: '#F8F6F0' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
 <div className="mb-12">
@@ -146,8 +146,8 @@ return (
 <Button
                     onClick={() => setShowUpload(!showUpload)}
                     size="sm"
-                    className="gap-2 flex-shrink-0 bg-stone-300 hover:bg-stone-400 text-stone-700 hover:text-stone-800 px-3 py-1.5 text-sm rounded-lg shadow-sm transition-colors">
-                    <ApperIcon name="Plus" className="w-3 h-3" />
+                    className="gap-2 flex-shrink-0 bg-stone-300 hover:bg-stone-400 text-stone-700 hover:text-stone-800 px-4 py-2 text-sm rounded-md shadow-sm transition-colors">
+                    <ApperIcon name="Plus" className="w-4 h-4" />
                     Upload Book
                 </Button>
             </div>
@@ -165,11 +165,11 @@ return (
                 <FileUpload onUpload={handleUpload} />
             </div>}
 
-<div className="flex flex-col items-center gap-6 mb-12">
+<div className="flex flex-col items-center gap-8 mb-12">
                 <SearchBar
                     value={searchQuery}
                     onChange={setSearchQuery}
-                    className="w-full max-w-3xl"
+                    className="w-full max-w-4xl px-4"
                     placeholder="Search your library..." />
                 <div className="flex items-center gap-3">
                     <span
@@ -204,7 +204,7 @@ return (
                                 </p>
                 <Button variant="ghost" onClick={() => setSearchQuery("")} className="mt-4">Show All Books
                                 </Button>
-</div> : <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 pb-8">
+</div> : <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 pb-12 px-4">
                 {filteredBooks.map(book => <BookCard key={book.Id} book={book} onDelete={handleDeleteBook} />)}
             </div>}
 </div>

@@ -1,0 +1,52 @@
+[
+  {
+    "Id": 1,
+    "title": "The Art of Simple Living",
+    "author": "Shunmyo Masuno",
+    "coverUrl": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=400&fit=crop",
+    "fileType": "pdf",
+    "fileUrl": "/sample-books/art-simple-living.pdf",
+    "totalPages": 224,
+    "currentPage": 45,
+    "lastReadAt": "2024-01-15T14:30:00Z",
+    "uploadedAt": "2024-01-10T09:15:00Z",
+    "fileSize": 2847291,
+    "content": {
+      "1": "Chapter 1: Finding Peace in Simplicity\n\nIn our increasingly complex world, the art of simple living has become more valuable than ever before. This ancient wisdom, rooted in Zen philosophy, teaches us that true happiness comes not from accumulating possessions or achievements, but from cultivating inner peace and mindfulness.\n\nThe path to simplicity begins with understanding what truly matters in our lives. When we strip away the unnecessary distractions and focus on the essential, we discover a profound sense of clarity and purpose that has been there all along, waiting to be uncovered.\n\nSimplicity is not about deprivation or living with less for the sake of it. Rather, it's about making conscious choices that align with our deepest values and bring us genuine fulfillment. It's about creating space in our lives for what brings us joy and meaning, while letting go of what merely clutters our existence.\n\nConsider the traditional Japanese tea ceremony, where every movement is deliberate and every element serves a purpose. There is nothing superfluous, yet nothing is lacking. This balance between having enough and not having too much is the essence of simple living.",
+      "2": "The practice of simplicity extends beyond our material possessions to encompass our thoughts, relationships, and daily routines. When we simplify our mental landscape, we create room for deeper contemplation and genuine connection with ourselves and others.\n\nOne of the greatest obstacles to simple living is our tendency to complicate things unnecessarily. We create elaborate plans when simple ones would suffice, we accumulate possessions we rarely use, and we fill our schedules with activities that don't truly enrich our lives.\n\nThe key is to regularly examine our choices and ask ourselves: Does this add value to my life? Does this align with my core values? Does this bring me peace or stress? These simple questions can guide us toward a more intentional way of living.\n\nSimplicity also means embracing the present moment fully, rather than constantly reaching for something more or different. When we learn to appreciate what we have right now, we discover that contentment is not a destination but a way of being.",
+      "3": "Chapter 2: The Wisdom of Less\n\nIn Zen philosophy, there is a concept called 'mu' or nothingness, which doesn't refer to emptiness in a negative sense, but rather to the spaciousness that allows for infinite possibilities. This principle applies beautifully to the art of simple living.\n\nWhen we create physical space in our homes by removing unnecessary items, we create mental space as well. Our environment profoundly affects our state of mind, and a cluttered space often leads to a cluttered mind. By surrounding ourselves only with things we truly need and love, we create a sanctuary that supports our well-being.\n\nThe process of decluttering is not just about organizing our possessions; it's about clarifying our priorities and values. Each item we choose to keep should serve a purpose or bring us joy. This mindful approach to our belongings helps us develop a deeper appreciation for what we have and reduces the impulse to constantly acquire more.\n\nLess can indeed be more when we focus on quality over quantity. A few well-made, beautiful items that we use and appreciate daily are far more valuable than numerous possessions that we ignore or take for granted."
+    }
+  },
+  {
+    "Id": 2,
+    "title": "Digital Minimalism",
+    "author": "Cal Newport",
+    "coverUrl": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=300&h=400&fit=crop",
+    "fileType": "epub",
+    "fileUrl": "/sample-books/digital-minimalism.epub",
+    "totalPages": 285,
+    "currentPage": 1,
+    "lastReadAt": "2024-01-12T10:45:00Z",
+    "uploadedAt": "2024-01-12T10:45:00Z",
+    "fileSize": 3421567,
+    "content": {
+      "1": "Introduction: A Lopsided Arms Race\n\nSometime in recent years—many of us are not sure exactly when—our relationship with our devices and digital services became complicated. What started as a promise of connectivity and productivity has transformed into something more ambiguous, and in some cases, darker.\n\nThe original vision for consumer technology was inspiring. Personal computers would unleash creativity, the Internet would democratize information, and smartphones would make us more efficient. These innovations did indeed deliver on many of their promises, but they also introduced an unexpected side effect: the dramatic increases in the addictive draw of digital tools.\n\nThe technologies that were meant to help us have instead created a persistent sense of unease. We check our phones constantly, refreshing feeds and looking for notifications. We feel anxious when we can't access our devices. We find ourselves unable to concentrate on single tasks without the urge to multitask with digital distractions.\n\nThis book argues that what we're experiencing is the result of a lopsided arms race. On one side, we have every major technology company employing teams of computer scientists, data scientists, and behavioral psychologists, all working together to make their products as irresistible as possible. On the other side, we have individual users, often armed with nothing more than good intentions and vague promises to 'use technology more mindfully.'"
+    }
+  },
+  {
+    "Id": 3,
+    "title": "Atomic Habits",
+    "author": "James Clear",
+    "coverUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop",
+    "fileType": "pdf",
+    "fileUrl": "/sample-books/atomic-habits.pdf",
+    "totalPages": 320,
+    "currentPage": 127,
+    "lastReadAt": "2024-01-18T16:20:00Z",
+    "uploadedAt": "2024-01-08T14:30:00Z",
+    "fileSize": 4125789,
+    "content": {
+      "1": "Chapter 1: The Surprising Power of Atomic Habits\n\nThe fate of British Cycling changed one day in 2003. The organization, which was the governing body for professional cycling in Great Britain, had recently hired Dave Brailsford as its new performance director. At the time, professional cyclists in Great Britain had endured nearly one hundred years of mediocrity. Since 1908, British riders had won just a single gold medal at the Olympic Games, and they had fared even worse in cycling's biggest race, the Tour de France. In 110 years, no British cyclist had ever won the event.\n\nIn fact, the performance of British riders had been so underwhelming that one of the top bike manufacturers in Europe refused to sell bikes to the team because they were afraid that it would hurt sales if other professionals saw the Brits using their gear.\n\nBrailsford had been hired to put British Cycling on a new trajectory. What made him different from previous coaches was his relentless commitment to a strategy that he referred to as 'the aggregation of marginal gains,' which was the philosophy of searching for a tiny margin of improvement in everything you do.\n\nBrailsford said, 'The whole principle came from the idea that if you broke down everything you could think of that goes into riding a bike, and then improve it by 1 percent, you will get a significant increase when you put them all together.'"
+    }
+  }
+]

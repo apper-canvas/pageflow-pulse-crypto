@@ -1,0 +1,90 @@
+@import 'react-toastify/dist/ReactToastify.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Lora', serif;
+    line-height: 1.6;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', serif;
+  }
+}
+
+@layer components {
+  .reading-text {
+    font-family: 'Lora', serif;
+    line-height: 1.8;
+    text-align: justify;
+    hyphens: auto;
+  }
+  
+  .book-card {
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+  }
+  
+  .book-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+  
+  .reader-ui {
+    transition: opacity 300ms ease-out;
+  }
+  
+  .theme-transition {
+    transition: background-color 300ms ease-out, color 300ms ease-out;
+  }
+}
+
+/* Toast overrides */
+.Toastify__toast-container {
+  z-index: 9999;
+  font-family: 'Lora', serif;
+}
+
+.Toastify__toast {
+  border-radius: 8px;
+  font-size: 14px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.Toastify__progress-bar {
+  background: #E74C3C;
+}
+
+/* Reading area paper texture for light mode */
+.reading-surface {
+  background-color: #FEFEFE;
+  background-image: 
+    radial-gradient(circle at 1px 1px, rgba(0,0,0,.04) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+.dark .reading-surface {
+  background-color: #2C3E50;
+  background-image: none;
+}
+
+/* Smooth scrolling for reader */
+.reader-content {
+  scroll-behavior: smooth;
+}
+
+/* Selection styling */
+::selection {
+  background-color: rgba(231, 76, 60, 0.2);
+  color: inherit;
+}
+
+.dark ::selection {
+  background-color: rgba(231, 76, 60, 0.3);
+}

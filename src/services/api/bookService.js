@@ -52,7 +52,6 @@ const saveSettings = (settings) => {
     localStorage.setItem("pageflow-settings", JSON.stringify(settings));
   } catch (error) {
     console.error("Error saving settings:", error);
-    toast.error("Failed to save settings");
   }
 };
 
@@ -75,7 +74,7 @@ export const bookService = {
   },
 
   // Add new book
-  async create(bookData) {
+async create(bookData) {
     await delay(400);
     const books = getStoredBooks();
     const maxId = books.length > 0 ? Math.max(...books.map(b => b.Id)) : 0;
@@ -92,7 +91,7 @@ export const bookService = {
     return { ...newBook };
   },
 
-  // Update book (primarily for reading progress)
+// Update book (primarily for reading progress)
   async update(id, updateData) {
     await delay(200);
     const books = getStoredBooks();
@@ -121,12 +120,12 @@ export const bookService = {
     return true;
   },
 
-  // Update reading position
+// Update reading position
   async updateReadingPosition(id, currentPage) {
     return this.update(id, { currentPage });
   },
 
-  // Get reading settings
+// Get reading settings
   async getSettings() {
     await delay(100);
     return { ...getStoredSettings() };

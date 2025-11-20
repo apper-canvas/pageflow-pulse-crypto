@@ -1,18 +1,17 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { bookService } from "@/services/api/bookService";
+import ApperIcon from "@/components/ApperIcon";
+import ThemeToggle from "@/components/molecules/ThemeToggle";
 import Loading from "@/components/ui/Loading";
 import ErrorView from "@/components/ui/ErrorView";
-import ApperIcon from "@/components/ApperIcon";
+import Library from "@/components/pages/Library";
 import Button from "@/components/atoms/Button";
 import Slider from "@/components/atoms/Slider";
-import ThemeToggle from "@/components/molecules/ThemeToggle";
-
 const BookReader = () => {
   const { bookId } = useParams();
   const navigate = useNavigate();
-  
   // Book and content state
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -33,13 +32,43 @@ const BookReader = () => {
     pageWidth: 700
   });
 
-  // Load book and settings
+// Auto-hide controls after inactivity
+  const resetControlsTimeout = useCallback(() => {
+    if (hideControlsTimeoutRef.current) {
+      clearTimeout(hideControlsTimeoutRef.current);
+    }
+    
+    setShowControls(true);
+    hideControlsTimeoutRef.current = setTimeout(() => {
+      if (!showSettings) {
+        setShowControls(false);
+      }
+    }, 3000);
+  }, [showSettings]);
+
+  // Mouse and touch activity handlers
+  useEffect(() => {
+    const handleActivity = () => resetControlsTimeout();
+    
+    document.addEventListener('mousemove', handleActivity);
+    document.addEventListener('touchstart', handleActivity);
+    document.addEventListener('click', handleActivity);
+    
+    return () => {
+      document.removeEventListener('mousemove', handleActivity);
+      document.removeEventListener('touchstart', handleActivity);
+      document.removeEventListener('click', handleActivity);
+    };
+  }, [resetControlsTimeout]);
+
+  // Load book and settings on mount
   useEffect(() => {
     loadBook();
     loadSettings();
-  }, [bookId]);
+    resetControlsTimeout();
+  }, [bookId, resetControlsTimeout]);
 
-  // Load content for current page
+// Load content for current page
   useEffect(() => {
     if (book && book.content) {
       const pageContent = book.content[currentPage.toString()] || "Page content not available.";
@@ -47,41 +76,52 @@ const BookReader = () => {
     }
   }, [book, currentPage]);
 
-  // Auto-hide controls
+  // Touch/Swipe handling for mobile
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+
+  const handleTouchStart = useCallback((e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  }, []);
+
+  const handleTouchEnd = useCallback((e) => {
+    if (!touchStartX.current || !touchStartY.current) return;
+
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const deltaX = touchStartX.current - touchEndX;
+    const deltaY = touchStartY.current - touchEndY;
+
+    // Only trigger swipe if horizontal movement is greater than vertical
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+      if (deltaX > 0) {
+        // Swiped left - next page
+        goToNextPage();
+      } else {
+        // Swiped right - previous page
+        goToPreviousPage();
+      }
+    }
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+  }, []);
+
   useEffect(() => {
-    const resetHideTimer = () => {
-      if (hideControlsTimeoutRef.current) {
-        clearTimeout(hideControlsTimeoutRef.current);
-      }
-      setShowControls(true);
-      hideControlsTimeoutRef.current = setTimeout(() => {
-        if (!showSettings) {
-          setShowControls(false);
-        }
-      }, 3000);
-    };
+    const contentArea = document.getElementById('reader-content');
+    if (contentArea) {
+      contentArea.addEventListener('touchstart', handleTouchStart);
+      contentArea.addEventListener('touchend', handleTouchEnd);
+      
+      return () => {
+        contentArea.removeEventListener('touchstart', handleTouchStart);
+        contentArea.removeEventListener('touchend', handleTouchEnd);
+      };
+    }
+  }, [handleTouchStart, handleTouchEnd]);
 
-    const handleMouseMove = () => resetHideTimer();
-    const handleKeyPress = () => resetHideTimer();
-    const handleClick = () => resetHideTimer();
-
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("keydown", handleKeyPress);
-    document.addEventListener("click", handleClick);
-
-    resetHideTimer();
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("keydown", handleKeyPress);
-      document.removeEventListener("click", handleClick);
-      if (hideControlsTimeoutRef.current) {
-        clearTimeout(hideControlsTimeoutRef.current);
-      }
-    };
-  }, [showSettings]);
-
-  // Keyboard navigation
+// Keyboard navigation
   useEffect(() => {
     const handleKeyPress = (e) => {
       if (showSettings) return;
@@ -116,11 +156,18 @@ const BookReader = () => {
     return () => document.removeEventListener("keydown", handleKeyPress);
   }, [book, currentPage, showSettings, navigate]);
 
-  const loadBook = async () => {
+  // Load book data
+const loadBook = async () => {
+    if (!bookId) {
+      setError("No book ID provided");
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       setError("");
-      const bookData = await bookService.getById(bookId);
+      const bookData = await bookService.getById(parseInt(bookId));
       setBook(bookData);
       setCurrentPage(bookData.currentPage || 1);
     } catch (err) {
@@ -130,8 +177,7 @@ const BookReader = () => {
       setLoading(false);
     }
   };
-
-  const loadSettings = async () => {
+const loadSettings = async () => {
     try {
       const savedSettings = await bookService.getSettings();
       setSettings(savedSettings);
@@ -146,8 +192,7 @@ const BookReader = () => {
       console.error("Error loading settings:", err);
     }
   };
-
-  const saveReadingPosition = useCallback(async (page) => {
+const saveReadingPosition = useCallback(async (page) => {
     if (!book) return;
     
     try {
@@ -157,26 +202,29 @@ const BookReader = () => {
     }
   }, [book]);
 
-  const goToPage = (page) => {
+  // Navigation functions
+const goToPage = useCallback((page) => {
     if (!book || page < 1 || page > book.totalPages) return;
     
     setCurrentPage(page);
     saveReadingPosition(page);
-  };
+    resetControlsTimeout();
+  }, [book, saveReadingPosition, resetControlsTimeout]);
 
-  const goToPreviousPage = () => {
+  const goToPreviousPage = useCallback(() => {
     if (currentPage > 1) {
       goToPage(currentPage - 1);
     }
-  };
+  }, [currentPage, goToPage]);
 
-  const goToNextPage = () => {
+  const goToNextPage = useCallback(() => {
     if (currentPage < (book?.totalPages || 1)) {
       goToPage(currentPage + 1);
     }
-  };
+  }, [currentPage, book?.totalPages, goToPage]);
 
-  const updateSettings = async (newSettings) => {
+  // Settings management
+const updateSettings = async (newSettings) => {
     try {
       setSettings(newSettings);
       await bookService.saveSettings(newSettings);
@@ -188,7 +236,7 @@ const BookReader = () => {
         document.documentElement.classList.remove("dark");
       }
       
-      toast.success("Settings saved");
+      toast.success("Settings saved", { autoClose: 2000 });
     } catch (err) {
       console.error("Error saving settings:", err);
       toast.error("Failed to save settings");
@@ -198,49 +246,52 @@ const BookReader = () => {
   const handleThemeChange = (theme) => {
     updateSettings({ ...settings, theme });
   };
-
+// Calculate progress
   const progressPercentage = book ? (currentPage / book.totalPages) * 100 : 0;
 
+  // Loading state
   if (loading) {
     return <Loading type="reader" />;
   }
 
+  // Error state
   if (error) {
     return <ErrorView message={error} onRetry={loadBook} />;
   }
 
+  // No book found
   if (!book) {
     return <ErrorView message="Book not found" showRetry={false} />;
   }
 
   return (
-    <div className="min-h-screen theme-transition reading-surface">
+<div className="min-h-screen theme-transition reading-surface">
       {/* Top Controls */}
       <div className={`fixed top-0 left-0 right-0 z-50 reader-ui ${showControls ? "opacity-100" : "opacity-0"} transition-opacity duration-300`}>
         <div className="bg-surface/95 dark:bg-dark-surface/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between px-6 py-4">
-            <div className="flex items-center gap-4">
+          <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
+            <div className="flex items-center gap-3 flex-1 min-w-0">
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => navigate("/")}
-                className="gap-2"
+                className="gap-2 flex-shrink-0"
               >
                 <ApperIcon name="ArrowLeft" className="w-4 h-4" />
-                Library
+                <span className="hidden sm:inline">Library</span>
               </Button>
               
-              <div className="hidden sm:block">
-                <h1 className="font-serif font-bold text-lg text-primary dark:text-dark-primary line-clamp-1">
+              <div className="min-w-0 flex-1">
+                <h1 className="font-serif font-bold text-base sm:text-lg text-primary dark:text-dark-primary truncate">
                   {book.title}
                 </h1>
-                <p className="text-sm text-secondary dark:text-dark-secondary">
+                <p className="text-xs sm:text-sm text-secondary dark:text-dark-secondary truncate">
                   by {book.author}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
               <div className="hidden sm:flex items-center gap-2 text-sm text-secondary dark:text-dark-secondary">
                 <span>Page {currentPage} of {book.totalPages}</span>
                 <span>•</span>
@@ -251,9 +302,9 @@ const BookReader = () => {
                 variant="ghost" 
                 size="sm"
                 onClick={() => setShowSettings(!showSettings)}
-                title="Settings"
+                title="Reading Settings"
               >
-                <ApperIcon name="Settings" className="w-5 h-5" />
+                <ApperIcon name="Settings" className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
 
               <ThemeToggle onThemeChange={handleThemeChange} />
@@ -272,7 +323,7 @@ const BookReader = () => {
 
       {/* Settings Panel */}
       {showSettings && (
-        <div className="fixed top-16 right-6 z-50 bg-surface dark:bg-dark-surface rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 w-80">
+        <div className="fixed top-16 right-4 sm:right-6 z-50 bg-surface dark:bg-dark-surface rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-72 sm:w-80">
           <div className="flex items-center justify-between mb-6">
             <h3 className="font-serif font-bold text-lg text-primary dark:text-dark-primary">
               Reading Settings
@@ -332,31 +383,35 @@ const BookReader = () => {
         </div>
       )}
 
-      {/* Navigation Arrows */}
-      <button
+{/* Navigation Arrows */}
+<button
         onClick={goToPreviousPage}
         disabled={currentPage <= 1}
-        className={`fixed left-0 top-0 bottom-0 w-20 z-40 flex items-center justify-center reader-ui transition-opacity duration-300 ${
+        className={`fixed left-0 top-0 bottom-0 w-16 sm:w-20 z-40 flex items-center justify-center reader-ui transition-opacity duration-300 ${
           showControls ? "opacity-100" : "opacity-0"
-        } disabled:opacity-20 hover:bg-black/5 dark:hover:bg-white/5`}
+        } disabled:opacity-20 hover:bg-black/5 dark:hover:bg-white/5 disabled:cursor-not-allowed`}
         title="Previous page (← or ↑)"
       >
-        <ApperIcon name="ChevronLeft" className="w-8 h-8 text-primary dark:text-dark-primary" />
+        <ApperIcon name="ChevronLeft" className="w-6 h-6 sm:w-8 sm:h-8 text-primary dark:text-dark-primary" />
       </button>
 
       <button
         onClick={goToNextPage}
         disabled={currentPage >= book.totalPages}
-        className={`fixed right-0 top-0 bottom-0 w-20 z-40 flex items-center justify-center reader-ui transition-opacity duration-300 ${
+        className={`fixed right-0 top-0 bottom-0 w-16 sm:w-20 z-40 flex items-center justify-center reader-ui transition-opacity duration-300 ${
           showControls ? "opacity-100" : "opacity-0"
-        } disabled:opacity-20 hover:bg-black/5 dark:hover:bg-white/5`}
+        } disabled:opacity-20 hover:bg-black/5 dark:hover:bg-white/5 disabled:cursor-not-allowed`}
         title="Next page (→, ↓, or Space)"
       >
-        <ApperIcon name="ChevronRight" className="w-8 h-8 text-primary dark:text-dark-primary" />
+        <ApperIcon name="ChevronRight" className="w-6 h-6 sm:w-8 sm:h-8 text-primary dark:text-dark-primary" />
       </button>
 
-      {/* Main Content */}
-      <div className="px-6 py-20">
+{/* Main Content */}
+<div 
+        id="reader-content"
+        className="px-4 sm:px-6 py-16 sm:py-20 min-h-screen cursor-pointer select-text"
+        onClick={resetControlsTimeout}
+      >
         <div 
           className="mx-auto reading-text"
           style={{ 
@@ -377,23 +432,25 @@ const BookReader = () => {
             ))}
           </div>
         </div>
+</div>
       </div>
 
       {/* Bottom Controls */}
       <div className={`fixed bottom-0 left-0 right-0 z-50 reader-ui ${showControls ? "opacity-100" : "opacity-0"} transition-opacity duration-300`}>
-        <div className="bg-surface/95 dark:bg-dark-surface/95 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700 px-6 py-4">
-          <div className="flex items-center justify-center gap-4 max-w-md mx-auto">
+        <div className="bg-surface/95 dark:bg-dark-surface/95 backdrop-blur-sm border-t border-gray-200 dark:border-gray-700 px-4 sm:px-6 py-3 sm:py-4">
+          <div className="flex items-center justify-center gap-3 sm:gap-4 max-w-md mx-auto">
             <Button 
               variant="ghost" 
               size="sm"
               onClick={goToPreviousPage}
               disabled={currentPage <= 1}
+              className="flex-shrink-0"
             >
               <ApperIcon name="ChevronLeft" className="w-4 h-4" />
             </Button>
             
-            <div className="flex items-center gap-3 text-sm text-secondary dark:text-dark-secondary">
-              <span>Page</span>
+            <div className="flex items-center gap-2 sm:gap-3 text-sm text-secondary dark:text-dark-secondary">
+              <span className="hidden sm:inline">Page</span>
               <input
                 type="number"
                 min={1}
@@ -405,7 +462,7 @@ const BookReader = () => {
                     goToPage(page);
                   }
                 }}
-                className="w-16 px-2 py-1 text-center bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-primary dark:text-dark-primary focus:border-accent focus:outline-none"
+                className="w-14 sm:w-16 px-2 py-1 text-center bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded text-primary dark:text-dark-primary focus:border-accent focus:outline-none text-sm"
               />
               <span>of {book.totalPages}</span>
             </div>
@@ -415,20 +472,19 @@ const BookReader = () => {
               size="sm"
               onClick={goToNextPage}
               disabled={currentPage >= book.totalPages}
+              className="flex-shrink-0"
             >
               <ApperIcon name="ChevronRight" className="w-4 h-4" />
             </Button>
           </div>
-        </div>
-      </div>
-
-      {/* Mobile progress indicator */}
-      <div className="sm:hidden fixed top-16 left-0 right-0 z-40 px-6">
-        <div className={`text-center py-2 reader-ui ${showControls ? "opacity-100" : "opacity-0"} transition-opacity duration-300`}>
-          <div className="text-sm text-secondary dark:text-dark-secondary">
-            Page {currentPage} of {book.totalPages} • {Math.round(progressPercentage)}%
+          
+          {/* Mobile progress info */}
+          <div className="sm:hidden text-center mt-2 text-xs text-secondary dark:text-dark-secondary">
+            {Math.round(progressPercentage)}% complete
           </div>
         </div>
+      </div>
+</div>
       </div>
     </div>
   );

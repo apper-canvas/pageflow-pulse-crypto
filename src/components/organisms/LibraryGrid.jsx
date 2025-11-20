@@ -17,12 +17,11 @@ const LibraryGrid = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("lastRead"); // lastRead, title, author, uploadDate
   const [showUpload, setShowUpload] = useState(false);
-
   useEffect(() => {
     loadBooks();
   }, []);
 
-  const loadBooks = async () => {
+const loadBooks = async () => {
     try {
       setLoading(true);
       setError("");
@@ -41,6 +40,7 @@ const LibraryGrid = () => {
       const newBook = await bookService.create(bookData);
       setBooks(prev => [newBook, ...prev]);
       setShowUpload(false);
+      toast.success("Book added to your library!");
     } catch (err) {
       console.error("Error uploading book:", err);
       throw err;
@@ -92,9 +92,9 @@ const LibraryGrid = () => {
   }
 
   if (books.length === 0) {
-    return (
+return (
       <div className="min-h-screen bg-background dark:bg-dark-background">
-        <div className="max-w-4xl mx-auto px-8 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Empty 
             title="Your Library is Empty"
             message="Start building your digital library by uploading your first book"
@@ -103,15 +103,21 @@ const LibraryGrid = () => {
           />
           
           {showUpload && (
-            <div className="mt-12">
-              <FileUpload onUpload={handleUpload} />
-              <div className="text-center mt-6">
-                <Button 
-                  variant="ghost" 
-                  onClick={() => setShowUpload(false)}
-                >
-                  Cancel
-                </Button>
+            <div className="mt-12 max-w-2xl mx-auto">
+              <div className="bg-surface dark:bg-dark-surface rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-8">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-xl font-serif font-bold text-primary dark:text-dark-primary">
+                    Upload New Books
+                  </h2>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => setShowUpload(false)}
+                  >
+                    <ApperIcon name="X" className="w-4 h-4" />
+                  </Button>
+                </div>
+                <FileUpload onUpload={handleUpload} />
               </div>
             </div>
           )}
@@ -141,29 +147,29 @@ const LibraryGrid = () => {
               className="gap-2 flex-shrink-0"
             >
               <ApperIcon name="Plus" className="w-5 h-5" />
-              Upload Book
+              Upload Books
             </Button>
           </div>
         </div>
 
         {/* Upload Section */}
-        {showUpload && (
-          <div className="mb-8 p-6 bg-surface dark:bg-dark-surface rounded-xl shadow-sm">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-serif font-bold text-primary dark:text-dark-primary">
-                Upload New Books
-              </h2>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => setShowUpload(false)}
-              >
-                <ApperIcon name="X" className="w-4 h-4" />
-              </Button>
+{showUpload && (
+            <div className="mb-8 p-6 bg-surface dark:bg-dark-surface rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-serif font-bold text-primary dark:text-dark-primary">
+                  Upload New Books
+                </h2>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => setShowUpload(false)}
+                >
+                  <ApperIcon name="X" className="w-4 h-4" />
+                </Button>
+              </div>
+              <FileUpload onUpload={handleUpload} />
             </div>
-            <FileUpload onUpload={handleUpload} />
-          </div>
-        )}
+          )}
 
         {/* Search and Sort */}
         <div className="flex flex-col sm:flex-row gap-4 mb-8">

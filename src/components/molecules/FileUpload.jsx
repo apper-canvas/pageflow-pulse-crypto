@@ -34,7 +34,7 @@ const FileUpload = ({ onUpload, className }) => {
   };
 
   const handleFiles = async (files) => {
-    const validFiles = files.filter(file => {
+const validFiles = files.filter(file => {
       const validTypes = ["application/pdf", "application/epub+zip"];
       const validExtensions = [".pdf", ".epub"];
       const isValidType = validTypes.includes(file.type) || 
@@ -64,6 +64,27 @@ const FileUpload = ({ onUpload, className }) => {
         
         const fileType = file.name.toLowerCase().endsWith('.pdf') ? 'pdf' : 'epub';
         
+        // Generate more realistic mock content
+        const generateMockContent = () => {
+          const chapters = [
+            "The Journey Begins", "Into the Unknown", "Challenges Arise", 
+            "The Turning Point", "New Discoveries", "Confronting the Past",
+            "The Final Chapter", "Resolution", "Epilogue"
+          ];
+          
+          const content = {};
+          const totalPages = Math.floor(Math.random() * 200) + 150;
+          
+          for (let i = 1; i <= totalPages; i++) {
+            const chapterIndex = Math.floor((i - 1) / (totalPages / chapters.length));
+            const chapterTitle = chapters[chapterIndex] || "Chapter";
+            
+            content[i.toString()] = `${i === 1 ? `${chapterTitle}\n\n` : ''}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.\n\nNemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.`;
+          }
+          
+          return content;
+        };
+        
         // Extract basic metadata
         const bookData = {
           title: file.name.replace(/\.(pdf|epub)$/i, ''),
@@ -71,7 +92,7 @@ const FileUpload = ({ onUpload, className }) => {
           coverUrl: `https://images.unsplash.com/photo-${Math.floor(Math.random() * 1000000000)}?w=300&h=400&fit=crop`,
           fileType,
           fileUrl: URL.createObjectURL(file),
-          totalPages: Math.floor(Math.random() * 300) + 100, // Mock page count
+          totalPages: Math.floor(Math.random() * 200) + 150,
           fileSize: file.size,
           content: generateMockContent()
         };

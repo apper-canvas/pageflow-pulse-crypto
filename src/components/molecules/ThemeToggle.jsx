@@ -6,10 +6,22 @@ const ThemeToggle = ({ onThemeChange, className }) => {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    // Check initial theme
-    const stored = localStorage.getItem("pageflow-theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initialTheme = stored || (prefersDark ? "dark" : "light");
+    // Check initial theme from localStorage or system preference
+    const stored = localStorage.getItem("pageflow-settings");
+    let initialTheme = "light";
+    
+    if (stored) {
+      try {
+        const settings = JSON.parse(stored);
+        initialTheme = settings.theme || "light";
+      } catch (error) {
+        console.error("Error parsing stored settings:", error);
+      }
+    } else {
+      // Use system preference if no stored setting
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      initialTheme = prefersDark ? "dark" : "light";
+    }
     
     setIsDark(initialTheme === "dark");
     applyTheme(initialTheme);
@@ -21,7 +33,23 @@ const ThemeToggle = ({ onThemeChange, className }) => {
     } else {
       document.documentElement.classList.remove("dark");
     }
-    localStorage.setItem("pageflow-theme", theme);
+    
+    // Update localStorage with new theme
+    try {
+      const stored = localStorage.getItem("pageflow-settings");
+      const settings = stored ? JSON.parse(stored) : {
+        theme: "light",
+        fontSize: 18,
+        lineSpacing: 1.8,
+        pageWidth: 700
+      };
+      
+      settings.theme = theme;
+      localStorage.setItem("pageflow-settings", JSON.stringify(settings));
+    } catch (error) {
+      console.error("Error saving theme to settings:", error);
+    }
+    
     onThemeChange?.(theme);
   };
 
@@ -36,7 +64,7 @@ const ThemeToggle = ({ onThemeChange, className }) => {
       variant="ghost"
       size="sm"
       onClick={toggleTheme}
-      className={`p-2 ${className}`}
+      className={`p-2 ${className || ""}`}
       title={`Switch to ${isDark ? "light" : "dark"} mode`}
     >
       <ApperIcon 

@@ -127,21 +127,21 @@ const LibraryGrid = () => {
         <div className="mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             <div>
-              <h1 className="text-4xl font-serif font-bold text-primary dark:text-dark-primary mb-2">
-                Your Library
+<h1 className="text-4xl font-serif font-bold text-primary dark:text-dark-primary mb-2">
+                My Library
               </h1>
               <p className="text-lg text-secondary dark:text-dark-secondary">
                 {books.length} {books.length === 1 ? "book" : "books"} in your collection
               </p>
             </div>
             
-            <Button 
+<Button 
               onClick={() => setShowUpload(!showUpload)}
               size="lg"
               className="gap-2 flex-shrink-0"
             >
               <ApperIcon name="Plus" className="w-5 h-5" />
-              Add Books
+              Upload Book
             </Button>
           </div>
         </div>

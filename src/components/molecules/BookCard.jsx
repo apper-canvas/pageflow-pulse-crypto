@@ -65,71 +65,69 @@ const colorIndex = book.Id % coverColors.length;
     e.target.src = defaultCover;
   };
   return (
-<div className="group book-card cursor-pointer h-full flex flex-col bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-100">
-      <div onClick={handleOpenBook} className="block relative flex-1">
-        {/* Book Cover */}
-<div
-            className="relative aspect-[3/4] w-full overflow-hidden bg-slate-50 transition-all duration-300 rounded-t-xl">
+<div className="group book-card cursor-pointer h-full flex flex-col bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-100">
+      <div onClick={handleOpenBook} className="block relative">
+        {/* Book Cover - Compact Size */}
+        <div className="relative aspect-[4/5] w-full overflow-hidden bg-slate-50 transition-all duration-300 rounded-t-xl">
             <img
                 src={finalCoverUrl}
                 alt={`${book.title} cover`}
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                style={{ aspectRatio: '3/4', objectFit: 'cover' }}
+                style={{ aspectRatio: '4/5', objectFit: 'cover' }}
                 onError={handleImageError} />
             
-{/* Subtle hover overlay */}
+            {/* Subtle hover overlay */}
             <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         
-        {/* Delete button */}
-<div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <button
-                onClick={handleDelete}
-                className="w-7 h-7 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200 backdrop-blur-sm hover:scale-105"
-                title="Delete book">
-                <ApperIcon name="Trash2" className="w-3 h-3" />
-            </button>
-        </div>
+            {/* Delete button */}
+            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <button
+                    onClick={handleDelete}
+                    className="w-6 h-6 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200 backdrop-blur-sm hover:scale-105"
+                    title="Delete book">
+                    <ApperIcon name="Trash2" className="w-2.5 h-2.5" />
+                </button>
+            </div>
         
-{/* File type badge */}
-        <div className="absolute top-2 left-2">
-            <span className="text-xs px-2 py-1 rounded font-medium uppercase tracking-wide shadow-sm bg-white/85 text-gray-600 backdrop-blur-sm">
-                {book.fileType}
-            </span>
-        </div>
+            {/* File type badge */}
+            <div className="absolute top-2 left-2">
+                <span className="text-[10px] px-1.5 py-0.5 rounded font-medium uppercase tracking-wide shadow-sm bg-white/85 text-gray-600 backdrop-blur-sm">
+                    {book.fileType}
+                </span>
+            </div>
         </div>
     </div>
     
-    {/* Book Title and Author */}
-{/* Glass-like bottom panel */}
-{/* Glass-like bottom panel */}
-<div className="bg-white p-3 space-y-2 flex-grow flex flex-col rounded-b-xl">
-            <div>
-                <h3 className="font-semibold text-sm leading-snug text-slate-900 line-clamp-2 mb-1 text-left">
-                    {book.title}
-                </h3>
-                <p className="text-xs text-slate-500 mb-2 text-left">
-                    {book.author}
-                </p>
-{/* Clean Progress Bar */}
-                {book.currentPage > 0 && (
-<div className="mt-auto pt-1">
-                        <div className="flex items-center justify-between mb-1">
-                            <span className="text-xs text-slate-400">Progress</span>
-                            <span className="text-xs text-slate-600 font-medium">{Math.round(progressPercentage)}%</span>
-                        </div>
-                        <div className="w-full bg-gray-100 rounded-full h-1 overflow-hidden">
-                            <div
-                                className="bg-slate-400 rounded-full h-1 transition-all duration-500"
-                                style={{
-                                    width: `${progressPercentage}%`
-                                }}
-                                title={`${Math.round(progressPercentage)}% complete`}>
-                            </div>
+    {/* Book Info - Compact Layout */}
+    <div className="bg-white p-2.5 space-y-1 flex-grow flex flex-col rounded-b-xl">
+        <div>
+            <h3 className="font-semibold text-sm leading-tight text-slate-900 line-clamp-2 mb-0.5 text-left">
+                {book.title}
+            </h3>
+            <p className="text-xs text-slate-500 mb-1.5 text-left">
+                {book.author}
+            </p>
+            
+            {/* Clean Progress Bar */}
+            {book.currentPage > 0 && (
+                <div className="mt-auto pt-1">
+                    <div className="flex items-center justify-between mb-1">
+                        <span className="text-[10px] text-slate-400">Progress</span>
+                        <span className="text-[10px] text-slate-600 font-medium">{Math.round(progressPercentage)}%</span>
+                    </div>
+                    <div className="w-full bg-gray-100 rounded-full h-0.5 overflow-hidden">
+                        <div
+                            className="bg-slate-400 rounded-full h-0.5 transition-all duration-500"
+                            style={{
+                                width: `${progressPercentage}%`
+                            }}
+                            title={`${Math.round(progressPercentage)}% complete`}>
                         </div>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
         </div>
+    </div>
 </div>
   );
 };

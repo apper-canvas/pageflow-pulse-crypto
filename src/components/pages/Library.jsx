@@ -7,7 +7,14 @@ import LibraryGrid from "@/components/organisms/LibraryGrid";
 const Library = () => {
   const navigate = useNavigate();
   const location = useLocation();
+const [activeTab, setActiveTab] = useState('popular');
 
+  const tabs = [
+    { id: 'popular', label: 'Popular' },
+    { id: 'top-selling', label: 'Top Selling' },
+    { id: 'following', label: 'Following' },
+    { id: 'new', label: 'New' }
+  ];
   const menuItems = [
     { id: 'home', label: 'Home', icon: 'Home', path: '/' },
     { id: 'discover', label: 'Discover', icon: 'Compass', path: '/discover' },
@@ -80,7 +87,26 @@ const Library = () => {
 
 {/* Main Content */}
       <div className="flex-1 ml-64 mr-80">
-        <LibraryGrid />
+        {/* Tab Bar */}
+        <div className="px-6 py-4 bg-white border-b border-gray-100">
+          <div className="flex space-x-8">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`relative pb-3 px-2 text-sm font-medium transition-colors duration-200 ${
+                  activeTab === tab.id
+                    ? 'text-slate-900 border-b-2 border-slate-900'
+                    : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        
+        <LibraryGrid activeTab={activeTab} />
       </div>
 
       {/* Right Sidebar */}

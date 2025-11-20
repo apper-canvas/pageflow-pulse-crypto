@@ -1,8 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import React, { Suspense, lazy } from "react";
-import Reader from "@/components/pages/Reader";
-import NotFound from "@/components/pages/NotFound";
-import Library from "@/components/pages/Library";
 import Layout from "@/components/organisms/Layout";
 
 // Lazy load page components
@@ -11,10 +8,6 @@ const Discover = lazy(() => import("@/components/pages/Discover"));
 const Bookmarks = lazy(() => import("@/components/pages/Bookmarks"));
 const Settings = lazy(() => import("@/components/pages/Settings"));
 const Help = lazy(() => import("@/components/pages/Help"));
-const Reader = lazy(() => import("@/components/pages/Reader"));
-const NotFound = lazy(() => import("@/components/pages/NotFound"));
-
-const Library = lazy(() => import("@/components/pages/Library"));
 const Reader = lazy(() => import("@/components/pages/Reader"));
 const NotFound = lazy(() => import("@/components/pages/NotFound"));
 

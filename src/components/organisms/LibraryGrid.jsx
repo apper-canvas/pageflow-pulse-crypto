@@ -94,7 +94,7 @@ const filteredBooks = books
 
   if (books.length === 0) {
 return (
-<div className="min-h-screen bg-gradient-to-br from-stone-50 via-gray-50 to-slate-100" style={{ background: 'linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%)' }}>
+<div className="min-h-screen bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Empty
             title="Your Library is Empty"
@@ -129,17 +129,16 @@ return (
   }
 
 return (
-<div className="min-h-screen bg-gradient-to-br from-stone-50 via-gray-50 to-slate-100" style={{ background: 'linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%)' }}>
+<div className="min-h-screen bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-<div className="mb-16">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-12">
+<div className="mb-8">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
                 <div>
-                    <h1 className="text-6xl font-serif font-bold text-slate-800 dark:text-dark-primary mb-4 tracking-tight leading-tight">
+                    <h1 className="text-4xl font-serif font-bold text-slate-800 dark:text-dark-primary mb-3 tracking-tight">
                         My Library
                     </h1>
-                    <div className="h-0.5 w-24 bg-gradient-to-r from-slate-600 to-slate-400 rounded-full mb-6"></div>
-                    <p className="text-xl text-slate-600 dark:text-dark-secondary font-normal leading-relaxed">
+                    <p className="text-lg text-slate-600 dark:text-dark-secondary">
                         {books.length} {books.length === 1 ? "book" : "books"} in your collection
                     </p>
                 </div>
@@ -147,39 +146,39 @@ return (
                     <Button
                         onClick={() => setShowUpload(!showUpload)}
                         size="lg"
-                        className="gap-3 flex-shrink-0 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-800 hover:to-slate-900 text-white px-8 py-4 text-base rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-0 backdrop-blur-sm">
+                        className="gap-3 flex-shrink-0 bg-slate-700 hover:bg-slate-800 text-white px-6 py-3 text-base rounded-xl shadow-lg hover:shadow-xl transition-all duration-200">
                         <ApperIcon name="Plus" className="w-5 h-5" />
                         Add Books
                     </Button>
                 </div>
             </div>
             {/* Upload Section */}
-{showUpload && <div className="mb-12 p-8 bg-white/80 dark:bg-dark-surface/80 backdrop-blur-md rounded-3xl shadow-2xl border border-slate-200/40 dark:border-gray-700/40">
-                <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-3xl font-serif font-bold text-slate-800 dark:text-dark-primary">
+            {showUpload && <div className="mb-8 p-6 bg-white rounded-xl shadow-lg border border-slate-200">
+                <div className="flex items-center justify-between mb-4">
+                    <h2 className="text-2xl font-serif font-bold text-slate-800 dark:text-dark-primary">
                         Upload New Books
                     </h2>
-                    <Button variant="ghost" size="sm" onClick={() => setShowUpload(false)} className="hover:bg-slate-100/50 rounded-full p-3">
+                    <Button variant="ghost" size="sm" onClick={() => setShowUpload(false)} className="hover:bg-slate-100 rounded-lg p-2">
                         <ApperIcon name="X" className="w-5 h-5" />
                     </Button>
                 </div>
                 <FileUpload onUpload={handleUpload} />
             </div>}
 
-<div className="flex flex-col items-center gap-8 mb-16">
+            <div className="flex flex-col items-center gap-6 mb-8">
                 <SearchBar
                     value={searchQuery}
                     onChange={setSearchQuery}
-                    className="w-full max-w-4xl mx-auto"
+                    className="w-full max-w-2xl mx-auto"
                     placeholder="Search your library..." />
-                <div className="flex items-center gap-4 bg-white/70 dark:bg-dark-surface/70 backdrop-blur-md rounded-2xl px-8 py-4 shadow-xl border border-slate-200/40 hover:shadow-2xl transition-all duration-300">
+                <div className="flex items-center gap-4 bg-white rounded-lg px-4 py-2 shadow-sm border border-slate-200">
                     <span className="text-sm text-slate-600 dark:text-dark-secondary font-medium whitespace-nowrap">
                         Sort by:
                     </span>
                     <select
                         value={sortBy}
                         onChange={e => setSortBy(e.target.value)}
-                        className="bg-transparent border-none text-sm text-slate-800 dark:text-dark-primary focus:outline-none font-medium cursor-pointer hover:text-slate-900 transition-colors duration-200">
+                        className="bg-transparent border-none text-sm text-slate-800 dark:text-dark-primary focus:outline-none font-medium cursor-pointer">
                         <option value="lastRead">Last Read</option>
                         <option value="title">Title</option>
                         <option value="author">Author</option>
@@ -191,8 +190,8 @@ return (
             {/* Results Info */}
             {searchQuery && <div className="mb-6">
                 <p className="text-secondary dark:text-dark-secondary">
-                    {filteredBooks.length === 0 ? "No books found" : `${filteredBooks.length} ${filteredBooks.length === 1 ? "book" : "books"} found`}for "{searchQuery}"
-                                </p>
+                    {filteredBooks.length === 0 ? "No books found" : `${filteredBooks.length} ${filteredBooks.length === 1 ? "book" : "books"} found`} for "{searchQuery}"
+                </p>
             </div>}
 {/* Books Grid */}
             {filteredBooks.length === 0 && searchQuery ? <div className="text-center py-16">
@@ -206,9 +205,8 @@ return (
                                 </p>
                 <Button variant="ghost" onClick={() => setSearchQuery("")} className="mt-4">Show All Books
                                 </Button>
-</div> : <div className="max-w-6xl mx-auto">
-<div className="max-w-7xl mx-auto px-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12 pb-20">
+</div> : <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pb-16">
                         {filteredBooks.map(book => <BookCard key={book.Id} book={book} onDelete={handleDeleteBook} />)}
                     </div>
                 </div>

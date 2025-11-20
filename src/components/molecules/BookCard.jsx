@@ -65,15 +65,15 @@ const coverColors = [
     e.target.src = defaultCover;
   };
   return (
-<div className="group book-card cursor-pointer h-full flex flex-col bg-white rounded-[18px] shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.03] hover:-translate-y-3 overflow-hidden border border-slate-100/60 backdrop-blur-sm">
+<div className="group book-card cursor-pointer h-full flex flex-col bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-2 overflow-hidden border border-slate-200">
       <div onClick={handleOpenBook} className="block relative flex-1">
         {/* Book Cover */}
 <div
-className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 dark:bg-dark-surface transition-all duration-300 rounded-t-[18px]">
+className="relative aspect-[3/4] w-full overflow-hidden bg-slate-50 transition-all duration-300 rounded-t-lg">
             <img
-src={finalCoverUrl}
+                src={finalCoverUrl}
                 alt={`${book.title} cover`}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                 style={{ aspectRatio: '3/4', objectFit: 'cover' }}
                 onError={handleImageError} />
             
@@ -105,13 +105,12 @@ src={finalCoverUrl}
     {/* Book Title and Author */}
 {/* Glass-like bottom panel */}
 {/* Glass-like bottom panel */}
-        <div className="relative bg-white/90 backdrop-blur-md p-6 space-y-4 flex-grow flex flex-col border-t border-slate-100/60 rounded-b-[18px]">
-            <div className="absolute inset-0 bg-gradient-to-t from-white/60 to-transparent rounded-b-[18px]" />
-            <div className="relative z-10">
-                <h3 className="font-serif font-bold text-xl leading-tight text-slate-900 dark:text-dark-primary line-clamp-2 group-hover:text-slate-800 transition-colors duration-200 mb-2">
+<div className="bg-white p-4 space-y-3 flex-grow flex flex-col rounded-b-lg">
+            <div>
+                <h3 className="font-serif font-semibold text-lg leading-tight text-slate-900 dark:text-dark-primary line-clamp-2 mb-1 text-left">
                     {book.title}
                 </h3>
-                <p className="text-base text-slate-600 dark:text-dark-secondary font-medium opacity-75 mb-4">
+                <p className="text-sm text-slate-600 dark:text-dark-secondary mb-3 text-left">
                     {book.author}
                 </p>
                 
@@ -122,14 +121,13 @@ src={finalCoverUrl}
                             <span className="text-sm text-slate-500 font-semibold">Reading Progress</span>
                             <span className="text-sm text-slate-700 font-bold bg-slate-100 px-2 py-1 rounded-full">{Math.round(progressPercentage)}%</span>
                         </div>
-                        <div className="w-full bg-slate-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden shadow-inner">
+<div className="w-full bg-slate-200 dark:bg-gray-700 rounded-full h-1.5 overflow-hidden">
                             <div
-                                className="bg-gradient-to-r from-slate-600 to-slate-800 dark:bg-accent rounded-full h-3 transition-all duration-700 shadow-sm relative overflow-hidden"
+                                className="bg-slate-600 dark:bg-accent rounded-full h-1.5 transition-all duration-500"
                                 style={{
                                     width: `${progressPercentage}%`
                                 }}
                                 title={`${Math.round(progressPercentage)}% complete`}>
-                                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-full" />
                             </div>
                         </div>
                     </div>

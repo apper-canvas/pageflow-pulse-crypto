@@ -37,8 +37,9 @@ const FileUpload = ({ onUpload, className }) => {
 const validFiles = files.filter(file => {
       const validTypes = ["application/pdf", "application/epub+zip"];
       const validExtensions = [".pdf", ".epub"];
+      const fileName = file.name.toLowerCase();
       const isValidType = validTypes.includes(file.type) || 
-                         validExtensions.some(ext => file.name.toLowerCase().endsWith(ext));
+                         validExtensions.some(ext => fileName.endsWith(ext));
       
       // Strict validation - only accept PDF or EPUB files
       if (!isValidType) {
@@ -46,16 +47,29 @@ const validFiles = files.filter(file => {
         return false;
       }
       
-      // Additional check to prevent image files from being processed as books
+      // Prevent any image files from being processed as books
       if (file.type.startsWith('image/') || file.type.startsWith('video/') || file.type.startsWith('audio/')) {
         toast.error(`"${file.name}" appears to be a media file. Please upload PDF or EPUB book files only.`);
         return false;
       }
       
-      // Check for common non-book file types
-      const invalidTypes = ['text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      // Block common document types that aren't books
+      const invalidTypes = [
+        'text/plain', 'text/html', 'text/csv',
+        'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        'application/zip', 'application/x-zip-compressed'
+      ];
       if (invalidTypes.includes(file.type)) {
         toast.error(`"${file.name}" is not supported. Please convert to PDF or EPUB format first.`);
+        return false;
+      }
+      
+      // Additional file extension check for common non-book files
+      const invalidExtensions = ['.txt', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.zip', '.rar', '.jpg', '.jpeg', '.png', '.gif', '.webp', '.mp4', '.avi', '.mov', '.mp3', '.wav'];
+      if (invalidExtensions.some(ext => fileName.endsWith(ext))) {
+        toast.error(`"${file.name}" is not a valid book format. Only PDF and EPUB files are supported.`);
         return false;
       }
       
@@ -100,10 +114,11 @@ const validFiles = files.filter(file => {
         };
         
 // Extract basic metadata
-const bookData = {
-          title: file.name.replace(/\.(pdf|epub)$/i, ''),
+const bookTitle = file.name.replace(/\.(pdf|epub)$/i, '');
+        const bookData = {
+          title: bookTitle,
           author: "Unknown Author",
-          coverUrl: "data:image/svg+xml,%3Csvg width='300' height='450' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='450' fill='%23f8f9fa'/%3E%3Cg transform='translate(150,225)'%3E%3Ctext x='0' y='-20' text-anchor='middle' font-family='serif' font-size='18' fill='%23666'%3EBook%3C/text%3E%3Ctext x='0' y='20' text-anchor='middle' font-family='serif' font-size='12' fill='%23999'%3ECover%3C/text%3E%3C/g%3E%3C/svg%3E",
+          coverUrl: `data:image/svg+xml,%3Csvg width='300' height='450' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='450' fill='%23f8f9fa' stroke='%23e0e0e0' stroke-width='2'/%3E%3Cg transform='translate(150,225)'%3E%3Ctext x='0' y='-30' text-anchor='middle' font-family='serif' font-size='16' fill='%23666' font-weight='bold'%3E${encodeURIComponent(bookTitle.length > 20 ? bookTitle.substring(0, 20) + '...' : bookTitle)}%3C/text%3E%3Ctext x='0' y='-10' text-anchor='middle' font-family='serif' font-size='12' fill='%23999'%3EUnknown Author%3C/text%3E%3Ctext x='0' y='30' text-anchor='middle' font-family='serif' font-size='14' fill='%23aaa'%3EBook Cover%3C/text%3E%3C/g%3E%3C/svg%3E`,
           fileType,
           fileUrl: URL.createObjectURL(file),
           totalPages: Math.floor(Math.random() * 200) + 150,

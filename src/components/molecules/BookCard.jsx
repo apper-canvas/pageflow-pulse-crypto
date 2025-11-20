@@ -25,8 +25,8 @@ const BookCard = ({ book, onDelete }) => {
   };
 
 const progressPercentage = book.currentPage > 0 ? (book.currentPage / book.totalPages) * 100 : 0;
-// Default book cover placeholder - proper book cover design
-const defaultCover = "data:image/svg+xml,%3Csvg width='300' height='450' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='450' fill='%23f8f9fa'/%3E%3Cg transform='translate(150,225)'%3E%3Ctext x='0' y='-20' text-anchor='middle' font-family='serif' font-size='18' fill='%23666'%3EBook%3C/text%3E%3Ctext x='0' y='20' text-anchor='middle' font-family='serif' font-size='12' fill='%23999'%3ECover%3C/text%3E%3C/g%3E%3C/svg%3E";
+// Default book cover placeholder with title
+const defaultCover = `data:image/svg+xml,%3Csvg width='300' height='450' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='450' fill='%23f8f9fa' stroke='%23e0e0e0' stroke-width='2'/%3E%3Cg transform='translate(150,225)'%3E%3Ctext x='0' y='-30' text-anchor='middle' font-family='serif' font-size='16' fill='%23666' font-weight='bold'%3E${encodeURIComponent(book.title.length > 20 ? book.title.substring(0, 20) + '...' : book.title)}%3C/text%3E%3Ctext x='0' y='-10' text-anchor='middle' font-family='serif' font-size='12' fill='%23999'%3E${encodeURIComponent(book.author)}%3C/text%3E%3Ctext x='0' y='30' text-anchor='middle' font-family='serif' font-size='14' fill='%23aaa'%3EBook Cover%3C/text%3E%3C/g%3E%3C/svg%3E`;
   
   const handleImageError = (e) => {
     e.target.src = defaultCover;
@@ -36,7 +36,7 @@ const defaultCover = "data:image/svg+xml,%3Csvg width='300' height='450' xmlns='
       <div onClick={handleOpenBook} className="block">
         {/* Book Cover */}
         <div
-            className="relative aspect-[2/3] overflow-hidden rounded-lg shadow-md hover:shadow-lg bg-white dark:bg-dark-surface transition-all duration-300 border border-stone-200 dark:border-gray-600">
+            className="relative aspect-[2/3] overflow-hidden rounded-lg shadow-lg hover:shadow-xl bg-white dark:bg-dark-surface transition-all duration-300 border border-stone-200 dark:border-gray-600">
             <img
                 src={book.coverUrl || defaultCover}
                 alt={`${book.title} cover`}
@@ -65,20 +65,20 @@ const defaultCover = "data:image/svg+xml,%3Csvg width='300' height='450' xmlns='
         </div>
     </div>
     {/* Book Title and Author */}
-<div className="mt-4 space-y-2">
+<div className="mt-4 space-y-1">
         <h3
-            className="font-serif font-bold text-base leading-tight text-stone-800 dark:text-dark-primary line-clamp-2 group-hover:text-stone-600 transition-colors duration-200">
+            className="font-serif font-bold text-lg leading-tight text-stone-800 dark:text-dark-primary line-clamp-2 group-hover:text-stone-600 transition-colors duration-200">
             {book.title}
         </h3>
-        <p className="text-sm text-stone-500 dark:text-dark-secondary">
+        <p className="text-sm text-stone-400 dark:text-dark-secondary font-medium">
             {book.author}
         </p>
         {/* Progress Bar at bottom of card */}
 {book.currentPage > 0 && (
           <div className="mt-3">
-            <div className="w-full bg-stone-200 dark:bg-gray-700 rounded-full h-2">
+            <div className="w-full bg-stone-200 dark:bg-gray-700 rounded-full h-3">
                 <div
-                    className="bg-stone-600 dark:bg-accent rounded-full h-2 transition-all duration-300"
+                    className="bg-stone-600 dark:bg-accent rounded-full h-3 transition-all duration-300"
                     style={{
                         width: `${progressPercentage}%`
                     }}

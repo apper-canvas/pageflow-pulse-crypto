@@ -14,9 +14,9 @@ const SearchBar = ({ value, onChange, placeholder = "Search books...", className
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="pl-16 pr-14 py-6 rounded-full border-0 bg-white/80 dark:bg-dark-surface/80 backdrop-blur-md focus:ring-4 focus:ring-slate-300/40 dark:focus:ring-slate-600/40 w-full shadow-2xl hover:shadow-3xl focus:shadow-3xl transition-all duration-300 text-lg placeholder:text-slate-400/70 placeholder:text-base font-medium focus:bg-white/90 dark:focus:bg-dark-surface/90 outline-none ring-1 ring-slate-200/50 focus:ring-slate-400/60"
+          className="pl-16 pr-14 py-6 rounded-full border-0 bg-white dark:bg-dark-surface backdrop-blur-md focus:ring-4 focus:ring-slate-300/40 dark:focus:ring-slate-600/40 w-full shadow-2xl hover:shadow-3xl focus:shadow-3xl transition-all duration-300 text-lg placeholder:text-slate-400 placeholder:text-base font-medium focus:bg-white dark:focus:bg-dark-surface outline-none"
           style={{
-            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6)'
+            boxShadow: '0 15px 50px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8)'
           }}
         />
         {value && (

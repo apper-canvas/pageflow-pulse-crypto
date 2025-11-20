@@ -9,7 +9,7 @@ const Button = forwardRef(({
   disabled,
   ...props 
 }, ref) => {
-const baseStyles = "inline-flex items-center justify-center rounded-2xl font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl backdrop-blur-sm";
+const baseStyles = "inline-flex items-center justify-center rounded-2xl font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-2xl backdrop-blur-sm transform hover:-translate-y-0.5";
   
   const variants = {
     default: "bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white focus:ring-slate-500/50",

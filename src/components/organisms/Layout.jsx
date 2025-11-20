@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import TopNavigation from '@/components/organisms/TopNavigation';
 const Layout = () => {
   return (
-<div className="min-h-screen theme-transition bg-gradient-to-br from-stone-50 via-gray-50 to-slate-100">
+<div className="min-h-screen theme-transition bg-gray-50">
       <TopNavigation />
       <main>
         <Outlet />

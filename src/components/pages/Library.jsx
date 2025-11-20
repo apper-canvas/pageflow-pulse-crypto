@@ -1,8 +1,9 @@
-import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { bookService } from "@/services/api/bookService";
+import RightSidebar from "@/components/organisms/RightSidebar";
 import ApperIcon from "@/components/ApperIcon";
 import LibraryGrid from "@/components/organisms/LibraryGrid";
-
 const Library = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,9 +25,9 @@ const Library = () => {
   };
 
   return (
-<div className="flex min-h-screen bg-gradient-to-br from-stone-50 via-gray-50 to-slate-100">
+<div className="flex min-h-screen bg-gray-50">
       {/* Left Sidebar */}
-      <div className="w-64 bg-white/90 backdrop-blur-md h-screen fixed left-0 top-0 shadow-xl border-r border-slate-200/50 rounded-r-2xl z-10">
+<div className="w-64 bg-white h-screen fixed left-0 top-0 shadow-lg rounded-r-2xl z-10">
         <div className="flex flex-col h-full">
           {/* App Logo */}
           <div className="p-6 border-b border-slate-100">
@@ -78,9 +79,12 @@ const Library = () => {
       </div>
 
 {/* Main Content */}
-      <div className="flex-1 ml-64">
+      <div className="flex-1 ml-64 mr-80">
         <LibraryGrid />
       </div>
+
+      {/* Right Sidebar */}
+      <RightSidebar />
     </div>
   );
 };

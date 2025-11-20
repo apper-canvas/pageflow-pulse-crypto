@@ -6,18 +6,18 @@ const TopNavigation = () => {
   const [searchValue, setSearchValue] = useState('');
 
   return (
-    <div className="bg-white border-b border-gray-200 shadow-sm">
-      <div className="flex items-center justify-between px-8 py-4">
+<div className="bg-white shadow-lg mx-4 mt-4 rounded-xl">
+      <div className="flex items-center justify-between px-8 py-6">
         {/* Left spacer for alignment */}
         <div className="flex-1"></div>
         
         {/* Centered Search Bar */}
-        <div className="flex-1 max-w-md mx-8">
+<div className="flex-1 max-w-md mx-8">
           <SearchBar
             value={searchValue}
             onChange={setSearchValue}
             placeholder="Search your library..."
-            className="w-full"
+            className="w-full shadow-lg"
           />
         </div>
 

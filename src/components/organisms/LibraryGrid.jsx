@@ -94,7 +94,7 @@ const filteredBooks = books
 
   if (books.length === 0) {
 return (
-<div className="min-h-screen bg-white">
+<div className="min-h-screen bg-transparent">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Empty
             title="Your Library is Empty"
@@ -129,7 +129,7 @@ return (
   }
 
 return (
-<div className="min-h-screen bg-white">
+<div className="min-h-screen bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
 <div className="mb-8">
@@ -167,12 +167,12 @@ return (
 
             <div className="flex flex-col items-center gap-6 mb-8">
                 <SearchBar
-                    value={searchQuery}
+value={searchQuery}
                     onChange={setSearchQuery}
-                    className="w-full max-w-2xl mx-auto"
+                    className="w-full max-w-2xl mx-auto shadow-lg"
                     placeholder="Search your library..." />
-                <div className="flex items-center gap-4 bg-white rounded-lg px-4 py-2 shadow-sm border border-slate-200">
-                    <span className="text-sm text-slate-600 dark:text-dark-secondary font-medium whitespace-nowrap">
+<div className="flex items-center gap-4 bg-white rounded-xl px-6 py-3 shadow-lg border-0">
+                    <span className="text-sm text-slate-600 dark:text-dark-secondary font-semibold whitespace-nowrap">
                         Sort by:
                     </span>
                     <select

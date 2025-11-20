@@ -1,0 +1,56 @@
+[
+  {
+    "Id": 1,
+    "title": "The Art of Character Development in Modern Fiction",
+    "thumbnail": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=200&h=150&fit=crop",
+    "author": "Sarah Mitchell",
+    "readTime": 8,
+    "publishedAt": "2024-01-15T10:30:00Z",
+    "category": "Writing Tips"
+  },
+  {
+    "Id": 2,
+    "title": "5 Books That Will Change Your Perspective on Life",
+    "thumbnail": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=150&fit=crop",
+    "author": "James Parker",
+    "readTime": 6,
+    "publishedAt": "2024-01-14T14:20:00Z",
+    "category": "Book Reviews"
+  },
+  {
+    "Id": 3,
+    "title": "Building the Perfect Reading Nook",
+    "thumbnail": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=150&fit=crop",
+    "author": "Emily Foster",
+    "readTime": 5,
+    "publishedAt": "2024-01-13T09:45:00Z",
+    "category": "Lifestyle"
+  },
+  {
+    "Id": 4,
+    "title": "Digital vs Physical: The Great Reading Debate",
+    "thumbnail": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=200&h=150&fit=crop",
+    "author": "Michael Torres",
+    "readTime": 7,
+    "publishedAt": "2024-01-12T16:15:00Z",
+    "category": "Technology"
+  },
+  {
+    "Id": 5,
+    "title": "How to Start a Book Club That Actually Works",
+    "thumbnail": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=200&h=150&fit=crop",
+    "author": "Lisa Chen",
+    "readTime": 9,
+    "publishedAt": "2024-01-11T11:00:00Z",
+    "category": "Community"
+  },
+  {
+    "Id": 6,
+    "title": "The Psychology Behind Why We Love Stories",
+    "thumbnail": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=150&fit=crop",
+    "author": "Dr. Amanda Reed",
+    "readTime": 12,
+    "publishedAt": "2024-01-10T13:30:00Z",
+    "category": "Psychology"
+  }
+]

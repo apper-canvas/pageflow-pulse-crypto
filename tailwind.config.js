@@ -6,9 +6,10 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: {
+fontFamily: {
+        'sans': ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
         'serif': ['Merriweather', 'serif'],
-        'body': ['Lora', 'serif'],
+        'body': ['Inter', 'sans-serif'],
       },
       colors: {
         primary: '#2C3E50',

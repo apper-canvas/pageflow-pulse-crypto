@@ -65,11 +65,11 @@ const coverColors = [
     e.target.src = defaultCover;
   };
   return (
-<div className="group book-card cursor-pointer h-full flex flex-col bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-2 overflow-hidden border border-slate-200">
+<div className="group book-card cursor-pointer h-full flex flex-col bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-3 overflow-hidden border-0">
       <div onClick={handleOpenBook} className="block relative flex-1">
         {/* Book Cover */}
 <div
-className="relative aspect-[3/4] w-full overflow-hidden bg-slate-50 transition-all duration-300 rounded-t-lg">
+className="relative aspect-[3/4] w-full overflow-hidden bg-slate-50 transition-all duration-300 rounded-t-2xl">
             <img
                 src={finalCoverUrl}
                 alt={`${book.title} cover`}
@@ -105,7 +105,7 @@ className="relative aspect-[3/4] w-full overflow-hidden bg-slate-50 transition-a
     {/* Book Title and Author */}
 {/* Glass-like bottom panel */}
 {/* Glass-like bottom panel */}
-<div className="bg-white p-4 space-y-3 flex-grow flex flex-col rounded-b-lg">
+<div className="bg-white p-4 space-y-3 flex-grow flex flex-col rounded-b-2xl">
             <div>
                 <h3 className="font-serif font-semibold text-lg leading-tight text-slate-900 dark:text-dark-primary line-clamp-2 mb-1 text-left">
                     {book.title}

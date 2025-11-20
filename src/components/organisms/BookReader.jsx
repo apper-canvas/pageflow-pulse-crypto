@@ -379,10 +379,11 @@ const updateSettings = async (newSettings) => {
                 onChange={(value) => updateSettings({ ...settings, pageWidth: value })}
               />
             </div>
-          </div>
 </div>
         </div>
       )}
+
+      {/* Navigation Arrows */}
       {/* Navigation Arrows */}
       <button
         onClick={goToPreviousPage}

@@ -42,8 +42,25 @@ const coverColors = [
   const selectedColor = coverColors[colorIndex];
   const titleDisplay = book.title.length > 28 ? book.title.substring(0, 28) + '...' : book.title;
   const authorDisplay = book.author.length > 24 ? book.author.substring(0, 24) + '...' : book.author;
-const defaultCover = `data:image/svg+xml,%3Csvg width='300' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:${selectedColor.from.replace('#', '%23')};stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:${selectedColor.to.replace('#', '%23')};stop-opacity:1' /%3E%3C/linearGradient%3E%3ClinearGradient id='overlay' x1='0%25' y1='70%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23000000;stop-opacity:0' /%3E%3Cstop offset='100%25' style='stop-color:%23000000;stop-opacity:0.6' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='300' height='400' fill='url(%23grad)' rx='18'/%3E%3Crect width='300' height='400' fill='url(%23overlay)' rx='18'/%3E%3Cg transform='translate(150,320)'%3E%3Ctext x='0' y='0' text-anchor='middle' font-family='Inter,sans-serif' font-size='20' fill='white' font-weight='700' opacity='0.95'%3E${encodeURIComponent(titleDisplay)}%3C/text%3E%3Ctext x='0' y='24' text-anchor='middle' font-family='Inter,sans-serif' font-size='14' fill='white' opacity='0.75'%3E${encodeURIComponent(authorDisplay)}%3C/text%3E%3C/g%3E%3C/svg%3E`;
+
+  // Generate consistent placeholder book cover
+  const generateDefaultCover = () => {
+    return `data:image/svg+xml,%3Csvg width='300' height='450' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad${book.Id}' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:${selectedColor.from.replace('#', '%23')};stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:${selectedColor.to.replace('#', '%23')};stop-opacity:1' /%3E%3C/linearGradient%3E%3ClinearGradient id='overlay${book.Id}' x1='0%25' y1='70%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23000000;stop-opacity:0' /%3E%3Cstop offset='100%25' style='stop-color:%23000000;stop-opacity:0.6' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='300' height='450' fill='url(%23grad${book.Id})' rx='18'/%3E%3Crect width='300' height='450' fill='url(%23overlay${book.Id})' rx='18'/%3E%3Cg transform='translate(150,360)'%3E%3Ctext x='0' y='-20' text-anchor='middle' font-family='Inter,sans-serif' font-size='18' fill='white' font-weight='700' opacity='0.95'%3E${encodeURIComponent(titleDisplay)}%3C/text%3E%3Ctext x='0' y='8' text-anchor='middle' font-family='Inter,sans-serif' font-size='14' fill='white' opacity='0.75'%3E${encodeURIComponent(authorDisplay)}%3C/text%3E%3C/g%3E%3C/svg%3E`;
+  };
+
+  const defaultCover = generateDefaultCover();
   
+  // Validate cover image - reject inappropriate images and always use placeholder for books
+  const shouldUseDefaultCover = (coverUrl) => {
+    // Always use default cover for book files - no external images
+    if (!coverUrl || coverUrl.includes('data:image/svg+xml')) return true;
+    
+    // Block any external image URLs to prevent random photos/portraits
+    return true;
+  };
+
+  const finalCoverUrl = shouldUseDefaultCover(book.coverUrl) ? defaultCover : book.coverUrl;
+
   const handleImageError = (e) => {
     e.target.src = defaultCover;
   };
@@ -54,7 +71,7 @@ const defaultCover = `data:image/svg+xml,%3Csvg width='300' height='400' xmlns='
 <div
 className="relative aspect-[3/4] w-full overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 dark:bg-dark-surface transition-all duration-300 rounded-t-[18px]">
             <img
-                src={book.coverUrl || defaultCover}
+src={finalCoverUrl}
                 alt={`${book.title} cover`}
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
                 style={{ aspectRatio: '3/4', objectFit: 'cover' }}

@@ -115,10 +115,27 @@ const validFiles = files.filter(file => {
         
 // Extract basic metadata
 const bookTitle = file.name.replace(/\.(pdf|epub)$/i, '');
+        
+        // Generate elegant book cover placeholder
+        const coverColors = [
+          { from: '#6366f1', to: '#8b5cf6' },
+          { from: '#ec4899', to: '#f43f5e' },
+          { from: '#06b6d4', to: '#0ea5e9' },
+          { from: '#10b981', to: '#059669' },
+          { from: '#f59e0b', to: '#d97706' },
+          { from: '#8b5cf6', to: '#7c3aed' },
+          { from: '#ef4444', to: '#dc2626' },
+          { from: '#06b6d4', to: '#0891b2' }
+        ];
+        
+        const colorIndex = Math.floor(Math.random() * coverColors.length);
+        const selectedColor = coverColors[colorIndex];
+        const titleDisplay = bookTitle.length > 24 ? bookTitle.substring(0, 24) + '...' : bookTitle;
+        
         const bookData = {
           title: bookTitle,
           author: "Unknown Author",
-          coverUrl: `data:image/svg+xml,%3Csvg width='300' height='450' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='300' height='450' fill='%23f8f9fa' stroke='%23e0e0e0' stroke-width='2'/%3E%3Cg transform='translate(150,225)'%3E%3Ctext x='0' y='-30' text-anchor='middle' font-family='serif' font-size='16' fill='%23666' font-weight='bold'%3E${encodeURIComponent(bookTitle.length > 20 ? bookTitle.substring(0, 20) + '...' : bookTitle)}%3C/text%3E%3Ctext x='0' y='-10' text-anchor='middle' font-family='serif' font-size='12' fill='%23999'%3EUnknown Author%3C/text%3E%3Ctext x='0' y='30' text-anchor='middle' font-family='serif' font-size='14' fill='%23aaa'%3EBook Cover%3C/text%3E%3C/g%3E%3C/svg%3E`,
+          coverUrl: `data:image/svg+xml,%3Csvg width='300' height='450' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='gradNew' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:${selectedColor.from.replace('#', '%23')};stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:${selectedColor.to.replace('#', '%23')};stop-opacity:1' /%3E%3C/linearGradient%3E%3ClinearGradient id='overlayNew' x1='0%25' y1='70%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23000000;stop-opacity:0' /%3E%3Cstop offset='100%25' style='stop-color:%23000000;stop-opacity:0.6' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='300' height='450' fill='url(%23gradNew)' rx='18'/%3E%3Crect width='300' height='450' fill='url(%23overlayNew)' rx='18'/%3E%3Cg transform='translate(150,360)'%3E%3Ctext x='0' y='-20' text-anchor='middle' font-family='Inter,sans-serif' font-size='18' fill='white' font-weight='700' opacity='0.95'%3E${encodeURIComponent(titleDisplay)}%3C/text%3E%3Ctext x='0' y='8' text-anchor='middle' font-family='Inter,sans-serif' font-size='14' fill='white' opacity='0.75'%3EUnknown Author%3C/text%3E%3C/g%3E%3C/svg%3E`,
           fileType,
           fileUrl: URL.createObjectURL(file),
           totalPages: Math.floor(Math.random() * 200) + 150,

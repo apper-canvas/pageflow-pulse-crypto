@@ -129,16 +129,16 @@ return (
   }
 
 return (
-<div className="min-h-screen bg-transparent">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div className="min-h-screen bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Header */}
-<div className="mb-8">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
+<div className="mb-6">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
                 <div>
-                    <h1 className="text-4xl font-serif font-bold text-slate-800 dark:text-dark-primary mb-3 tracking-tight">
+                    <h1 className="text-3xl font-bold text-slate-800 mb-2">
                         My Library
                     </h1>
-                    <p className="text-lg text-slate-600 dark:text-dark-secondary">
+                    <p className="text-slate-600">
                         {books.length} {books.length === 1 ? "book" : "books"} in your collection
                     </p>
                 </div>
@@ -146,39 +146,39 @@ return (
                     <Button
                         onClick={() => setShowUpload(!showUpload)}
                         size="lg"
-                        className="gap-3 flex-shrink-0 bg-slate-700 hover:bg-slate-800 text-white px-6 py-3 text-base rounded-xl shadow-lg hover:shadow-xl transition-all duration-200">
-                        <ApperIcon name="Plus" className="w-5 h-5" />
+                        className="gap-2 flex-shrink-0 bg-slate-700 hover:bg-slate-800 text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
+                        <ApperIcon name="Plus" className="w-4 h-4" />
                         Add Books
                     </Button>
                 </div>
             </div>
             {/* Upload Section */}
-            {showUpload && <div className="mb-8 p-6 bg-white rounded-xl shadow-lg border border-slate-200">
-                <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-2xl font-serif font-bold text-slate-800 dark:text-dark-primary">
+            {showUpload && <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="flex items-center justify-between mb-3">
+                    <h2 className="text-xl font-bold text-slate-800">
                         Upload New Books
                     </h2>
-                    <Button variant="ghost" size="sm" onClick={() => setShowUpload(false)} className="hover:bg-slate-100 rounded-lg p-2">
-                        <ApperIcon name="X" className="w-5 h-5" />
+                    <Button variant="ghost" size="sm" onClick={() => setShowUpload(false)} className="hover:bg-gray-200 rounded p-2">
+                        <ApperIcon name="X" className="w-4 h-4" />
                     </Button>
                 </div>
                 <FileUpload onUpload={handleUpload} />
             </div>}
 
-            <div className="flex flex-col items-center gap-6 mb-8">
+            <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
                 <SearchBar
-value={searchQuery}
+                    value={searchQuery}
                     onChange={setSearchQuery}
-                    className="w-full max-w-2xl mx-auto shadow-lg"
+                    className="w-full max-w-md shadow-sm"
                     placeholder="Search your library..." />
-<div className="flex items-center gap-4 bg-white rounded-xl px-6 py-3 shadow-lg border-0">
-                    <span className="text-sm text-slate-600 dark:text-dark-secondary font-semibold whitespace-nowrap">
+                <div className="flex items-center gap-2 bg-gray-50 rounded-lg px-4 py-2 border">
+                    <span className="text-sm text-slate-600 font-medium whitespace-nowrap">
                         Sort by:
                     </span>
                     <select
                         value={sortBy}
                         onChange={e => setSortBy(e.target.value)}
-                        className="bg-transparent border-none text-sm text-slate-800 dark:text-dark-primary focus:outline-none font-medium cursor-pointer">
+                        className="bg-transparent border-none text-sm text-slate-800 focus:outline-none font-medium cursor-pointer">
                         <option value="lastRead">Last Read</option>
                         <option value="title">Title</option>
                         <option value="author">Author</option>
@@ -208,8 +208,8 @@ value={searchQuery}
                     </Button>
                 </div>
             ) : (
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pb-16">
+<div className="max-w-7xl mx-auto px-4">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pb-12">
                         {filteredBooks.map(book => <BookCard key={book.Id} book={book} onDelete={handleDeleteBook} />)}
                     </div>
                 </div>

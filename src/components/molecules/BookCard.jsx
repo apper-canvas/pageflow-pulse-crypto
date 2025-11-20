@@ -38,14 +38,14 @@ const coverColors = [
     { from: '#06b6d4', to: '#0891b2', name: 'Turquoise Wave' }
   ];
   
-  const colorIndex = book.Id % coverColors.length;
+const colorIndex = book.Id % coverColors.length;
   const selectedColor = coverColors[colorIndex];
-  const titleDisplay = book.title.length > 28 ? book.title.substring(0, 28) + '...' : book.title;
-  const authorDisplay = book.author.length > 24 ? book.author.substring(0, 24) + '...' : book.author;
+  const titleDisplay = book.title.length > 32 ? book.title.substring(0, 32) + '...' : book.title;
+  const authorDisplay = book.author.length > 28 ? book.author.substring(0, 28) + '...' : book.author;
 
-  // Generate consistent placeholder book cover
+// Generate consistent placeholder book cover
   const generateDefaultCover = () => {
-    return `data:image/svg+xml,%3Csvg width='300' height='450' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad${book.Id}' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:${selectedColor.from.replace('#', '%23')};stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:${selectedColor.to.replace('#', '%23')};stop-opacity:1' /%3E%3C/linearGradient%3E%3ClinearGradient id='overlay${book.Id}' x1='0%25' y1='70%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23000000;stop-opacity:0' /%3E%3Cstop offset='100%25' style='stop-color:%23000000;stop-opacity:0.6' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='300' height='450' fill='url(%23grad${book.Id})' rx='18'/%3E%3Crect width='300' height='450' fill='url(%23overlay${book.Id})' rx='18'/%3E%3Cg transform='translate(150,360)'%3E%3Ctext x='0' y='-20' text-anchor='middle' font-family='Inter,sans-serif' font-size='18' fill='white' font-weight='700' opacity='0.95'%3E${encodeURIComponent(titleDisplay)}%3C/text%3E%3Ctext x='0' y='8' text-anchor='middle' font-family='Inter,sans-serif' font-size='14' fill='white' opacity='0.75'%3E${encodeURIComponent(authorDisplay)}%3C/text%3E%3C/g%3E%3C/svg%3E`;
+    return `data:image/svg+xml,%3Csvg width='240' height='320' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad${book.Id}' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:${selectedColor.from.replace('#', '%23')};stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:${selectedColor.to.replace('#', '%23')};stop-opacity:1' /%3E%3C/linearGradient%3E%3ClinearGradient id='overlay${book.Id}' x1='0%25' y1='70%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23000000;stop-opacity:0' /%3E%3Cstop offset='100%25' style='stop-color:%23000000;stop-opacity:0.4' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='240' height='320' fill='url(%23grad${book.Id})' rx='12'/%3E%3Crect width='240' height='320' fill='url(%23overlay${book.Id})' rx='12'/%3E%3Cg transform='translate(120,280)'%3E%3Ctext x='0' y='-15' text-anchor='middle' font-family='Inter,sans-serif' font-size='14' fill='white' font-weight='600' opacity='0.9'%3E${encodeURIComponent(titleDisplay)}%3C/text%3E%3Ctext x='0' y='5' text-anchor='middle' font-family='Inter,sans-serif' font-size='12' fill='white' opacity='0.7'%3E${encodeURIComponent(authorDisplay)}%3C/text%3E%3C/g%3E%3C/svg%3E`;
   };
 
   const defaultCover = generateDefaultCover();
@@ -65,37 +65,34 @@ const coverColors = [
     e.target.src = defaultCover;
   };
   return (
-<div className="group book-card cursor-pointer h-full flex flex-col bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-3 overflow-hidden border-0">
+<div className="group book-card cursor-pointer h-full flex flex-col bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 overflow-hidden border border-gray-100">
       <div onClick={handleOpenBook} className="block relative flex-1">
         {/* Book Cover */}
 <div
-className="relative aspect-[3/4] w-full overflow-hidden bg-slate-50 transition-all duration-300 rounded-t-2xl">
+            className="relative aspect-[3/4] w-full overflow-hidden bg-slate-50 transition-all duration-300 rounded-t-xl">
             <img
                 src={finalCoverUrl}
                 alt={`${book.title} cover`}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                 style={{ aspectRatio: '3/4', objectFit: 'cover' }}
                 onError={handleImageError} />
             
-            {/* Gradient overlay for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            
-            {/* Gradient overlay for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+{/* Subtle hover overlay */}
+            <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         
         {/* Delete button */}
-<div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <button
                 onClick={handleDelete}
-                className="w-9 h-9 bg-black/70 hover:bg-black/90 text-white rounded-full flex items-center justify-center shadow-2xl transition-all duration-200 backdrop-blur-md border border-white/30 hover:scale-110"
+                className="w-7 h-7 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-200 backdrop-blur-sm hover:scale-105"
                 title="Delete book">
-                <ApperIcon name="Trash2" className="w-3.5 h-3.5" />
+                <ApperIcon name="Trash2" className="w-3 h-3" />
             </button>
         </div>
         
-        {/* File type badge */}
-        <div className="absolute top-4 left-4">
-            <span className="text-xs px-3 py-1.5 rounded-full font-semibold uppercase tracking-wider shadow-lg bg-white/90 text-stone-700 backdrop-blur-sm border border-white/50">
+{/* File type badge */}
+        <div className="absolute top-2 left-2">
+            <span className="text-xs px-2 py-1 rounded font-medium uppercase tracking-wide shadow-sm bg-white/85 text-gray-600 backdrop-blur-sm">
                 {book.fileType}
             </span>
         </div>
@@ -105,25 +102,24 @@ className="relative aspect-[3/4] w-full overflow-hidden bg-slate-50 transition-a
     {/* Book Title and Author */}
 {/* Glass-like bottom panel */}
 {/* Glass-like bottom panel */}
-<div className="bg-white p-4 space-y-3 flex-grow flex flex-col rounded-b-2xl">
+<div className="bg-white p-3 space-y-2 flex-grow flex flex-col rounded-b-xl">
             <div>
-                <h3 className="font-serif font-semibold text-lg leading-tight text-slate-900 dark:text-dark-primary line-clamp-2 mb-1 text-left">
+                <h3 className="font-semibold text-sm leading-snug text-slate-900 line-clamp-2 mb-1 text-left">
                     {book.title}
                 </h3>
-                <p className="text-sm text-slate-600 dark:text-dark-secondary mb-3 text-left">
+                <p className="text-xs text-slate-500 mb-2 text-left">
                     {book.author}
                 </p>
-                
-                {/* Enhanced Progress Bar with rounded ends */}
+{/* Clean Progress Bar */}
                 {book.currentPage > 0 && (
-                    <div className="mt-auto pt-2">
-                        <div className="flex items-center justify-between mb-3">
-                            <span className="text-sm text-slate-500 font-semibold">Reading Progress</span>
-                            <span className="text-sm text-slate-700 font-bold bg-slate-100 px-2 py-1 rounded-full">{Math.round(progressPercentage)}%</span>
+<div className="mt-auto pt-1">
+                        <div className="flex items-center justify-between mb-1">
+                            <span className="text-xs text-slate-400">Progress</span>
+                            <span className="text-xs text-slate-600 font-medium">{Math.round(progressPercentage)}%</span>
                         </div>
-<div className="w-full bg-slate-200 dark:bg-gray-700 rounded-full h-1.5 overflow-hidden">
+                        <div className="w-full bg-gray-100 rounded-full h-1 overflow-hidden">
                             <div
-                                className="bg-slate-600 dark:bg-accent rounded-full h-1.5 transition-all duration-500"
+                                className="bg-slate-400 rounded-full h-1 transition-all duration-500"
                                 style={{
                                     width: `${progressPercentage}%`
                                 }}

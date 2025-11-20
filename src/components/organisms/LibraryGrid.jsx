@@ -194,23 +194,26 @@ return (
                 </p>
             </div>}
 {/* Books Grid */}
-            {filteredBooks.length === 0 && searchQuery ? <div className="text-center py-16">
-                <ApperIcon
-                    name="Search"
-                    className="w-16 h-16 text-secondary dark:text-dark-secondary mx-auto mb-4" />
-                <h3
-                    className="text-xl font-serif font-bold text-primary dark:text-dark-primary mb-2">No books found
-                                </h3>
-                <p className="text-secondary dark:text-dark-secondary">Try adjusting your search terms or browse all books
-                                </p>
-                <Button variant="ghost" onClick={() => setSearchQuery("")} className="mt-4">Show All Books
-                                </Button>
-</div> : <div className="max-w-7xl mx-auto px-6">
+            {filteredBooks.length === 0 && searchQuery ? (
+                <div className="text-center py-16">
+                    <ApperIcon
+                        name="Search"
+                        className="w-16 h-16 text-secondary dark:text-dark-secondary mx-auto mb-4" />
+                    <h3
+                        className="text-xl font-serif font-bold text-primary dark:text-dark-primary mb-2">No books found
+                    </h3>
+                    <p className="text-secondary dark:text-dark-secondary">Try adjusting your search terms or browse all books
+                    </p>
+                    <Button variant="ghost" onClick={() => setSearchQuery("")} className="mt-4">Show All Books
+                    </Button>
+                </div>
+            ) : (
+                <div className="max-w-7xl mx-auto px-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 pb-16">
                         {filteredBooks.map(book => <BookCard key={book.Id} book={book} onDelete={handleDeleteBook} />)}
                     </div>
                 </div>
-            </div>}
+            )}
 </div>
 </div>
     </div>

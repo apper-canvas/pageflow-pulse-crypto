@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { bookService } from "@/services/api/bookService";
+import bookService from "@/services/api/bookService";
 import ApperIcon from "@/components/ApperIcon";
 import SearchBar from "@/components/molecules/SearchBar";
 import FileUpload from "@/components/molecules/FileUpload";
@@ -12,15 +12,22 @@ import Library from "@/components/pages/Library";
 import Button from "@/components/atoms/Button";
 
 const LibraryGrid = ({ activeTab }) => {
-  const [books, setBooks] = useState([]);
+const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("lastRead"); // lastRead, title, author, recentlyAdded
   const [showUpload, setShowUpload] = useState(false);
+  const [selectedGenre, setSelectedGenre] = useState("all");
 useEffect(() => {
     loadBooks();
   }, [activeTab]);
+
+// Extract unique genres from books
+  const getUniqueGenres = (books) => {
+    const genres = books.flatMap(book => book.genres || []);
+    return ["all", ...new Set(genres)];
+  };
 
 const loadBooks = async () => {
     try {
@@ -83,10 +90,17 @@ const loadBooks = async () => {
   };
 
 const filteredBooks = books
-    .filter(book => 
-      book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      book.author.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+    .filter(book => {
+      // Genre filter
+      const matchesGenre = selectedGenre === "all" || 
+        (book.genres && book.genres.includes(selectedGenre));
+      
+      // Search filter
+      const matchesSearch = book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.author.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      return matchesGenre && matchesSearch;
+    })
     .sort((a, b) => {
       switch (sortBy) {
         case "title":
@@ -102,6 +116,8 @@ const filteredBooks = books
           return bLastRead - aLastRead;
       }
     });
+
+  const uniqueGenres = getUniqueGenres(books);
 
   if (loading) {
     return <Loading type="library" />;
@@ -160,19 +176,22 @@ return (
               <p className="text-slate-500">
                 {books.length} {books.length === 1 ? "book" : "books"} in your collection
               </p>
-                </div>
-                <div className="relative">
-<Button
-              onClick={() => setShowUpload(!showUpload)}
-              size="lg"
-              className="gap-2 flex-shrink-0 bg-slate-700 hover:bg-slate-800 text-white px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-200">
-              <ApperIcon name="Plus" className="w-4 h-4" />
-              Add Books
-            </Button>
-                </div>
             </div>
-            {/* Upload Section */}
-{showUpload && <div className="mb-8 p-6 bg-gray-50 rounded-xl border border-gray-200">
+            <div className="relative">
+              <Button
+                onClick={() => setShowUpload(!showUpload)}
+                size="lg"
+                className="gap-2 flex-shrink-0 bg-slate-700 hover:bg-slate-800 text-white px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-200">
+                <ApperIcon name="Plus" className="w-4 h-4" />
+                Add Books
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Upload Section */}
+        {showUpload && (
+          <div className="mb-8 p-6 bg-gray-50 rounded-xl border border-gray-200">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold text-slate-800">
                 Upload New Books
@@ -182,30 +201,33 @@ return (
               </Button>
             </div>
             <FileUpload onUpload={handleUpload} />
-          </div>}
+          </div>
+        )}
 
-            <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
-<SearchBar
-              value={searchQuery}
-              onChange={setSearchQuery}
-              className="w-full max-w-md shadow-sm"
-              placeholder="Search your library..." />
-<div className="flex items-center gap-2 bg-gray-50 rounded-xl px-4 py-3 border">
-              <span className="text-sm text-slate-600 font-medium whitespace-nowrap">
-                Sort by:
-              </span>
-              <select
-                value={sortBy}
-                onChange={e => setSortBy(e.target.value)}
-                className="bg-transparent border-none text-sm text-slate-800 focus:outline-none font-medium cursor-pointer">
-                <option value="lastRead">Last Read</option>
-                <option value="title">Title</option>
-                <option value="author">Author</option>
-                <option value="recentlyAdded">Recently Added</option>
-              </select>
-              <ApperIcon name="ChevronDown" className="w-4 h-4 text-slate-400" />
-            </div>
-            </div>
+        {/* Search and Sort Controls */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
+          <SearchBar
+            value={searchQuery}
+            onChange={setSearchQuery}
+            className="w-full max-w-md shadow-sm"
+            placeholder="Search your library..." 
+          />
+          <div className="flex items-center gap-2 bg-gray-50 rounded-xl px-4 py-3 border">
+            <span className="text-sm text-slate-600 font-medium whitespace-nowrap">
+              Sort by:
+            </span>
+            <select
+              value={sortBy}
+              onChange={e => setSortBy(e.target.value)}
+              className="bg-transparent border-none text-sm text-slate-800 focus:outline-none font-medium cursor-pointer">
+              <option value="lastRead">Last Read</option>
+              <option value="title">Title</option>
+              <option value="author">Author</option>
+              <option value="recentlyAdded">Recently Added</option>
+            </select>
+            <ApperIcon name="ChevronDown" className="w-4 h-4 text-slate-400" />
+          </div>
+        </div>
             {/* Results Info */}
 {searchQuery && <div className="mb-8">
             <p className="text-slate-500 dark:text-dark-secondary">

@@ -20,17 +20,36 @@ const [searchQuery, setSearchQuery] = useState("");
   const [showUpload, setShowUpload] = useState(false);
 useEffect(() => {
     loadBooks();
-  }, []);
+  }, [activeTab]);
 
 const loadBooks = async () => {
     try {
       setLoading(true);
       setError("");
-      const data = await bookService.getAll();
+      let data;
+      
+      // Fetch different data based on active tab
+      switch (activeTab) {
+        case 'popular':
+          data = await bookService.getPopular();
+          break;
+        case 'topSelling':
+          data = await bookService.getTopSelling();
+          break;
+        case 'following':
+          data = await bookService.getFollowing();
+          break;
+        case 'new':
+          data = await bookService.getNew();
+          break;
+        default:
+          data = await bookService.getAll();
+      }
+      
       setBooks(data);
     } catch (err) {
-      console.error("Error loading books:", err);
-      setError("Failed to load your library. Please try again.");
+      console.error(`Error loading ${activeTab} books:`, err);
+      setError(`Failed to load ${activeTab} books. Please try again.`);
     } finally {
       setLoading(false);
     }

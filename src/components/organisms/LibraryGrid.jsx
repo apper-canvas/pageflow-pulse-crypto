@@ -95,7 +95,7 @@ case "recentlyAdded":
 
   if (books.length === 0) {
 return (
-<div className="min-h-screen bg-stone-50 dark:bg-dark-background" style={{ backgroundColor: '#F5F5DC' }}>
+<div className="min-h-screen" style={{ backgroundColor: '#F8F6F0' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Empty 
             title="Your Library is Empty"
@@ -129,12 +129,12 @@ return (
   }
 
 return (
-<div className="min-h-screen" style={{ backgroundColor: '#F5F5DC' }}>
+<div className="min-h-screen" style={{ backgroundColor: '#F8F6F0' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-<div className="mb-8">
+<div className="mb-12">
             <div
-                className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10">
                 <div>
                     <h1
                         className="text-3xl font-serif font-bold text-stone-800 dark:text-dark-primary mb-2">My Library
@@ -146,14 +146,14 @@ return (
 <Button
                     onClick={() => setShowUpload(!showUpload)}
                     size="sm"
-                    className="gap-2 flex-shrink-0 bg-stone-400 hover:bg-stone-500 text-white px-3 py-1.5 text-sm rounded-md shadow-sm">
+                    className="gap-2 flex-shrink-0 bg-stone-300 hover:bg-stone-400 text-stone-700 hover:text-stone-800 px-3 py-1.5 text-sm rounded-lg shadow-sm transition-colors">
                     <ApperIcon name="Plus" className="w-3 h-3" />
                     Upload Book
                 </Button>
             </div>
             {/* Upload Section */}
 {showUpload && <div
-                className="mb-8 p-6 bg-white dark:bg-dark-surface rounded-xl shadow-md border border-stone-200 dark:border-gray-700">
+                className="mb-10 p-6 bg-white dark:bg-dark-surface rounded-xl shadow-sm border border-stone-200 dark:border-gray-700">
                 <div className="flex items-center justify-between mb-4">
                     <h2
                         className="text-xl font-serif font-bold text-stone-800 dark:text-dark-primary">Upload New Books
@@ -165,11 +165,11 @@ return (
                 <FileUpload onUpload={handleUpload} />
             </div>}
 
-<div className="flex flex-col items-center gap-4 mb-8">
+<div className="flex flex-col items-center gap-6 mb-12">
                 <SearchBar
                     value={searchQuery}
                     onChange={setSearchQuery}
-                    className="w-full max-w-2xl"
+                    className="w-full max-w-3xl"
                     placeholder="Search your library..." />
                 <div className="flex items-center gap-3">
                     <span
@@ -178,7 +178,7 @@ return (
                     <select
                         value={sortBy}
                         onChange={e => setSortBy(e.target.value)}
-                        className="bg-white dark:bg-dark-surface border border-stone-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm text-stone-800 dark:text-dark-primary focus:border-stone-500 focus:outline-none focus:ring-2 focus:ring-stone-500/20">
+                        className="bg-white dark:bg-dark-surface border border-stone-300 dark:border-gray-600 rounded-lg px-4 py-2 text-sm text-stone-800 dark:text-dark-primary focus:border-stone-500 focus:outline-none focus:ring-2 focus:ring-stone-500/20 shadow-sm">
                         <option value="lastRead">Last Read</option>
                         <option value="title">Title</option>
                         <option value="author">Author</option>
@@ -204,10 +204,10 @@ return (
                                 </p>
                 <Button variant="ghost" onClick={() => setSearchQuery("")} className="mt-4">Show All Books
                                 </Button>
-</div> : <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 md:gap-8">
+</div> : <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 pb-8">
                 {filteredBooks.map(book => <BookCard key={book.Id} book={book} onDelete={handleDeleteBook} />)}
             </div>}
-        </div>
+</div>
 </div>
     </div>
   );

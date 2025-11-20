@@ -32,53 +32,57 @@ const defaultCover = `data:image/svg+xml,%3Csvg width='300' height='450' xmlns='
     e.target.src = defaultCover;
   };
   return (
-<div className="group book-card cursor-pointer">
-      <div onClick={handleOpenBook} className="block">
+<div className="group book-card cursor-pointer h-full flex flex-col">
+      <div onClick={handleOpenBook} className="block relative flex-1">
         {/* Book Cover */}
         <div
-            className="relative aspect-[2/3] overflow-hidden rounded-lg shadow-lg hover:shadow-xl bg-white dark:bg-dark-surface transition-all duration-300 border border-stone-200 dark:border-gray-600">
+            className="relative aspect-[2/3] w-full overflow-hidden rounded-xl shadow-md hover:shadow-lg bg-white dark:bg-dark-surface transition-all duration-300 border border-stone-200 dark:border-gray-600">
             <img
                 src={book.coverUrl || defaultCover}
                 alt={`${book.title} cover`}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
                 onError={handleImageError} />
-        </div>
-{/* Delete button */}
+        
+        {/* Delete button */}
         <div
-            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             <button
                 onClick={handleDelete}
-                className="w-7 h-7 bg-stone-600 hover:bg-stone-700 text-white rounded-full flex items-center justify-center shadow-md transition-colors duration-200"
+                className="w-8 h-8 bg-stone-600/90 hover:bg-stone-700 text-white rounded-full flex items-center justify-center shadow-lg transition-colors duration-200 backdrop-blur-sm"
                 title="Delete book">
-                <ApperIcon name="Trash2" className="w-3 h-3" />
+                <ApperIcon name="Trash2" className="w-3.5 h-3.5" />
             </button>
         </div>
+        
         {/* File type badge */}
-        <div className="absolute top-2 left-2">
+        <div className="absolute top-3 left-3">
             <span
                 className={cn(
-                    "text-xs px-2 py-1 rounded-md font-medium uppercase tracking-wide",
-                    book.fileType === "pdf" ? "bg-stone-100 text-stone-700 dark:bg-stone-800 dark:text-stone-300" : "bg-stone-100 text-stone-700 dark:bg-stone-800 dark:text-stone-300"
+                    "text-xs px-2.5 py-1 rounded-lg font-medium uppercase tracking-wide shadow-sm",
+                    book.fileType === "pdf" ? "bg-white/90 text-stone-700 dark:bg-stone-800/90 dark:text-stone-300" : "bg-white/90 text-stone-700 dark:bg-stone-800/90 dark:text-stone-300"
                 )}>
                 {book.fileType}
             </span>
         </div>
+        </div>
     </div>
+    
     {/* Book Title and Author */}
-<div className="mt-4 space-y-1">
+<div className="mt-4 space-y-2 flex-shrink-0">
         <h3
-            className="font-serif font-bold text-lg leading-tight text-stone-800 dark:text-dark-primary line-clamp-2 group-hover:text-stone-600 transition-colors duration-200">
+            className="font-serif font-semibold text-base leading-tight text-stone-800 dark:text-dark-primary line-clamp-2 group-hover:text-stone-600 transition-colors duration-200">
             {book.title}
         </h3>
-        <p className="text-sm text-stone-400 dark:text-dark-secondary font-medium">
+        <p className="text-sm text-stone-500 dark:text-dark-secondary font-normal">
             {book.author}
         </p>
+        
         {/* Progress Bar at bottom of card */}
 {book.currentPage > 0 && (
-          <div className="mt-3">
-            <div className="w-full bg-stone-200 dark:bg-gray-700 rounded-full h-3">
+          <div className="mt-3 pt-1">
+            <div className="w-full bg-stone-200 dark:bg-gray-700 rounded-full h-2">
                 <div
-                    className="bg-stone-600 dark:bg-accent rounded-full h-3 transition-all duration-300"
+                    className="bg-stone-600 dark:bg-accent rounded-full h-2 transition-all duration-300"
                     style={{
                         width: `${progressPercentage}%`
                     }}

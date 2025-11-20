@@ -6,7 +6,7 @@ const TopNavigation = () => {
   const [searchValue, setSearchValue] = useState('');
 
   return (
-<div className="bg-white shadow-lg mx-4 mt-4 rounded-xl">
+<div className="bg-white shadow-lg mx-8 mt-6 rounded-xl">
       <div className="flex items-center justify-between px-8 py-6">
         {/* Left spacer for alignment */}
         <div className="flex-1"></div>
@@ -17,14 +17,14 @@ const TopNavigation = () => {
             value={searchValue}
             onChange={setSearchValue}
             placeholder="Search your library..."
-            className="w-full shadow-lg"
+            className="w-full shadow-sm"
           />
         </div>
 
         {/* Right Side Icons */}
         <div className="flex-1 flex items-center justify-end space-x-4">
           {/* Notification Bell */}
-          <button className="relative p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 group">
+<button className="relative p-3 rounded-xl hover:bg-gray-100 transition-colors duration-200 group">
             <ApperIcon 
               name="Bell" 
               size={20} 
@@ -37,7 +37,7 @@ const TopNavigation = () => {
           </button>
 
           {/* Profile Avatar */}
-          <button className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200 group">
+<button className="flex items-center space-x-2 p-3 rounded-xl hover:bg-gray-100 transition-colors duration-200 group">
             <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
               <ApperIcon 
                 name="User" 

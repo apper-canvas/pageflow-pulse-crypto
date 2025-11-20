@@ -37,23 +37,27 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1);
   }
   
-  .tab-bar {
+.tab-bar {
     border-bottom: 1px solid #e5e7eb;
   }
   
   .tab-button {
     position: relative;
     transition: all 200ms ease;
+    padding: 0.75rem 0.5rem;
   }
   
-  .tab-button.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background-color: #1f2937;
+  .tab-button.active {
+    color: #1f2937;
+    border-bottom: 2px solid #1f2937;
+  }
+  
+  .tab-button:not(.active) {
+    color: #6b7280;
+  }
+  
+  .tab-button:not(.active):hover {
+    color: #374151;
   }
   
   .reader-ui {

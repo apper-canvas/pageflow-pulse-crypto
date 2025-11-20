@@ -31,26 +31,26 @@ const [activeTab, setActiveTab] = useState('popular');
     navigate(path);
   };
 
-  return (
-<div className="flex min-h-screen bg-gray-50">
+return (
+    <div className="flex min-h-screen bg-gray-50">
       {/* Left Sidebar */}
-<div className="w-64 bg-white h-screen fixed left-0 top-0 shadow-lg rounded-r-2xl z-10">
+<div className="w-64 bg-white h-screen fixed left-0 top-0 shadow-lg rounded-xl z-10">
         <div className="flex flex-col h-full">
           {/* App Logo */}
-          <div className="p-6 border-b border-slate-100">
+<div className="p-6 border-b border-slate-100">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-gradient-to-br from-slate-600 to-slate-800 rounded-xl flex items-center justify-center shadow-lg">
                 <ApperIcon name="BookOpen" className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-serif font-bold text-slate-800">PageFlow</h1>
+                <h1 className="text-xl font-semibold text-slate-800">PageFlow</h1>
                 <p className="text-sm text-slate-500">Digital Library</p>
               </div>
             </div>
           </div>
 
           {/* Menu Items */}
-          <div className="flex-1 p-4">
+<div className="flex-1 p-6">
             <nav className="space-y-2">
               {menuItems.map((item) => {
                 const isActive = item.path === '/' ? location.pathname === '/' : location.pathname.startsWith(item.path);
@@ -77,7 +77,7 @@ const [activeTab, setActiveTab] = useState('popular');
           </div>
 
           {/* Footer */}
-          <div className="p-4 border-t border-slate-100">
+<div className="p-6 border-t border-slate-100">
             <div className="text-xs text-slate-400 text-center">
               © 2024 PageFlow
             </div>
@@ -86,9 +86,9 @@ const [activeTab, setActiveTab] = useState('popular');
       </div>
 
 {/* Main Content */}
-      <div className="flex-1 ml-64 mr-80">
+<div className="flex-1 ml-64 mr-80 min-h-screen">
         {/* Tab Bar */}
-        <div className="px-6 py-4 bg-white border-b border-gray-100">
+<div className="px-8 py-6 bg-white border-b border-gray-100">
           <div className="flex space-x-8">
             {tabs.map((tab) => (
               <button
@@ -106,7 +106,9 @@ const [activeTab, setActiveTab] = useState('popular');
           </div>
         </div>
         
-        <LibraryGrid activeTab={activeTab} />
+<div className="px-8 py-6">
+          <LibraryGrid activeTab={activeTab} />
+        </div>
       </div>
 
       {/* Right Sidebar */}

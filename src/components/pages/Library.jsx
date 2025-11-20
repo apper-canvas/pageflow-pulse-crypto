@@ -1,7 +1,7 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import LibraryGrid from "@/components/organisms/LibraryGrid";
+import { useLocation, useNavigate } from "react-router-dom";
 import ApperIcon from "@/components/ApperIcon";
+import LibraryGrid from "@/components/organisms/LibraryGrid";
 
 const Library = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Library = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-stone-50 via-gray-50 to-slate-100">
+<div className="flex min-h-screen bg-gradient-to-br from-stone-50 via-gray-50 to-slate-100">
       {/* Left Sidebar */}
       <div className="w-64 bg-white/90 backdrop-blur-md h-screen fixed left-0 top-0 shadow-xl border-r border-slate-200/50 rounded-r-2xl z-10">
         <div className="flex flex-col h-full">
@@ -77,7 +77,7 @@ const Library = () => {
         </div>
       </div>
 
-      {/* Main Content */}
+{/* Main Content */}
       <div className="flex-1 ml-64">
         <LibraryGrid />
       </div>

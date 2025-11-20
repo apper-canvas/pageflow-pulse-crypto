@@ -128,9 +128,9 @@ return (
     );
   }
 
-  return (
-    <div className="min-h-screen bg-background dark:bg-dark-background">
-    <div className="max-w-7xl mx-auto px-8 py-8">
+return (
+    <div className="min-h-screen bg-stone-50 dark:bg-dark-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
             <div
@@ -143,16 +143,16 @@ return (
                         {books.length} {books.length === 1 ? "book" : "books"}in your collection
                                       </p>
                 </div>
-                <Button
+<Button
                     onClick={() => setShowUpload(!showUpload)}
                     size="sm"
-                    className="gap-2 flex-shrink-0">
+                    className="gap-2 flex-shrink-0 bg-stone-600 hover:bg-stone-700 text-white px-3 py-1.5 text-sm">
                     <ApperIcon name="Plus" className="w-4 h-4" />Upload
-                                </Button>
+                </Button>
             </div>
             {/* Upload Section */}
-            {showUpload && <div
-                className="mb-8 p-6 bg-surface dark:bg-dark-surface rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+{showUpload && <div
+                className="mb-8 p-6 bg-white dark:bg-dark-surface rounded-xl shadow-sm border border-stone-200 dark:border-gray-700">
                 <div className="flex items-center justify-between mb-4">
                     <h2
                         className="text-xl font-serif font-bold text-primary dark:text-dark-primary">Upload New Books
@@ -163,12 +163,12 @@ return (
                 </div>
                 <FileUpload onUpload={handleUpload} />
             </div>}
-            {/* Search and Sort */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+
+            <div className="flex flex-col items-center gap-4 mb-8">
                 <SearchBar
                     value={searchQuery}
                     onChange={setSearchQuery}
-                    className="flex-1"
+                    className="w-full max-w-md"
                     placeholder="Search by title or author..." />
                 <div className="flex items-center gap-2">
                     <span
@@ -191,7 +191,7 @@ return (
                     {filteredBooks.length === 0 ? "No books found" : `${filteredBooks.length} ${filteredBooks.length === 1 ? "book" : "books"} found`}for "{searchQuery}"
                                 </p>
             </div>}
-            {/* Books Grid */}
+{/* Books Grid */}
             {filteredBooks.length === 0 && searchQuery ? <div className="text-center py-16">
                 <ApperIcon
                     name="Search"
@@ -203,11 +203,12 @@ return (
                                 </p>
                 <Button variant="ghost" onClick={() => setSearchQuery("")} className="mt-4">Show All Books
                                 </Button>
-            </div> : <div className="grid grid-cols-2 gap-6">
+            </div> : <div className="grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
                 {filteredBooks.map(book => <BookCard key={book.Id} book={book} onDelete={handleDeleteBook} />)}
             </div>}
         </div>
-    </div></div>
+</div>
+    </div>
   );
 };
 

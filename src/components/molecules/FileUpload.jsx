@@ -40,8 +40,15 @@ const validFiles = files.filter(file => {
       const isValidType = validTypes.includes(file.type) || 
                          validExtensions.some(ext => file.name.toLowerCase().endsWith(ext));
       
+      // Strict validation - only accept PDF or EPUB files
       if (!isValidType) {
-        toast.error(`${file.name} is not a supported file type. Please upload PDF or ePub files.`);
+        toast.error(`${file.name} is not a valid book file. Only PDF and EPUB files are supported.`);
+        return false;
+      }
+      
+      // Additional check to prevent image files from being processed as books
+      if (file.type.startsWith('image/')) {
+        toast.error(`${file.name} appears to be an image file. Please upload PDF or EPUB book files only.`);
         return false;
       }
       
@@ -85,11 +92,11 @@ const validFiles = files.filter(file => {
           return content;
         };
         
-        // Extract basic metadata
+// Extract basic metadata
         const bookData = {
-title: file.name.replace(/\.(pdf|epub)$/i, ''),
+          title: file.name.replace(/\.(pdf|epub)$/i, ''),
           author: "Unknown Author",
-          coverUrl: `https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&h=450&fit=crop&auto=format&q=80`,
+          coverUrl: `https://images.unsplash.com/photo-1621351183012-e2f9972dd9bf?w=300&h=450&fit=crop&auto=format&q=80`,
           fileType,
           fileUrl: URL.createObjectURL(file),
           totalPages: Math.floor(Math.random() * 200) + 150,

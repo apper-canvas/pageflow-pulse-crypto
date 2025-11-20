@@ -94,7 +94,7 @@ const filteredBooks = books
 
   if (books.length === 0) {
 return (
-<div className="min-h-screen bg-gradient-to-br from-orange-50 via-stone-50 to-gray-100" style={{ background: 'linear-gradient(135deg, #FEF7ED 0%, #F9FAFB 50%, #F3F4F6 100%)' }}>
+<div className="min-h-screen bg-gradient-to-br from-stone-50 via-gray-50 to-slate-100" style={{ background: 'linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Empty
             title="Your Library is Empty"
@@ -129,35 +129,37 @@ return (
   }
 
 return (
-<div className="min-h-screen bg-gradient-to-br from-orange-50 via-stone-50 to-gray-100" style={{ background: 'linear-gradient(135deg, #FEF7ED 0%, #F9FAFB 50%, #F3F4F6 100%)' }}>
+<div className="min-h-screen bg-gradient-to-br from-stone-50 via-gray-50 to-slate-100" style={{ background: 'linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
 <div className="mb-16">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-12">
                 <div>
-                    <h1 className="text-5xl font-serif font-bold text-stone-800 dark:text-dark-primary mb-3 tracking-tight">
+                    <h1 className="text-6xl font-serif font-bold text-slate-800 dark:text-dark-primary mb-4 tracking-tight leading-tight">
                         My Library
                     </h1>
-                    <div className="h-1 w-16 bg-gradient-to-r from-stone-400 to-stone-300 rounded-full mb-4"></div>
-                    <p className="text-lg text-stone-600 dark:text-dark-secondary font-medium">
+                    <div className="h-0.5 w-24 bg-gradient-to-r from-slate-600 to-slate-400 rounded-full mb-6"></div>
+                    <p className="text-xl text-slate-600 dark:text-dark-secondary font-normal leading-relaxed">
                         {books.length} {books.length === 1 ? "book" : "books"} in your collection
                     </p>
                 </div>
-                <Button
-                    onClick={() => setShowUpload(!showUpload)}
-                    size="lg"
-                    className="gap-3 flex-shrink-0 bg-gradient-to-r from-stone-600 to-stone-700 hover:from-stone-700 hover:to-stone-800 text-white px-6 py-3 text-base rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-0">
-                    <ApperIcon name="Upload" className="w-5 h-5" />
-                    Add Books
-                </Button>
+                <div className="relative">
+                    <Button
+                        onClick={() => setShowUpload(!showUpload)}
+                        size="lg"
+                        className="gap-3 flex-shrink-0 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-800 hover:to-slate-900 text-white px-8 py-4 text-base rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-0 backdrop-blur-sm">
+                        <ApperIcon name="Plus" className="w-5 h-5" />
+                        Add Books
+                    </Button>
+                </div>
             </div>
             {/* Upload Section */}
-{showUpload && <div className="mb-12 p-8 bg-white/70 dark:bg-dark-surface/70 backdrop-blur-sm rounded-2xl shadow-2xl border border-stone-200/50 dark:border-gray-700/50">
+{showUpload && <div className="mb-12 p-8 bg-white/80 dark:bg-dark-surface/80 backdrop-blur-md rounded-3xl shadow-2xl border border-slate-200/40 dark:border-gray-700/40">
                 <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-2xl font-serif font-bold text-stone-800 dark:text-dark-primary">
+                    <h2 className="text-3xl font-serif font-bold text-slate-800 dark:text-dark-primary">
                         Upload New Books
                     </h2>
-                    <Button variant="ghost" size="sm" onClick={() => setShowUpload(false)} className="hover:bg-stone-100/50 rounded-full">
+                    <Button variant="ghost" size="sm" onClick={() => setShowUpload(false)} className="hover:bg-slate-100/50 rounded-full p-3">
                         <ApperIcon name="X" className="w-5 h-5" />
                     </Button>
                 </div>
@@ -168,21 +170,22 @@ return (
                 <SearchBar
                     value={searchQuery}
                     onChange={setSearchQuery}
-                    className="w-full max-w-3xl"
+                    className="w-full max-w-4xl mx-auto"
                     placeholder="Search your library..." />
-                <div className="flex items-center gap-4 bg-white/50 dark:bg-dark-surface/50 backdrop-blur-sm rounded-2xl px-6 py-3 shadow-lg border border-stone-200/50">
-                    <span className="text-sm text-stone-600 dark:text-dark-secondary font-medium whitespace-nowrap">
+                <div className="flex items-center gap-4 bg-white/70 dark:bg-dark-surface/70 backdrop-blur-md rounded-2xl px-8 py-4 shadow-xl border border-slate-200/40 hover:shadow-2xl transition-all duration-300">
+                    <span className="text-sm text-slate-600 dark:text-dark-secondary font-medium whitespace-nowrap">
                         Sort by:
                     </span>
                     <select
                         value={sortBy}
                         onChange={e => setSortBy(e.target.value)}
-                        className="bg-transparent border-none text-sm text-stone-800 dark:text-dark-primary focus:outline-none font-medium cursor-pointer">
+                        className="bg-transparent border-none text-sm text-slate-800 dark:text-dark-primary focus:outline-none font-medium cursor-pointer hover:text-slate-900 transition-colors duration-200">
                         <option value="lastRead">Last Read</option>
                         <option value="title">Title</option>
                         <option value="author">Author</option>
                         <option value="recentlyAdded">Recently Added</option>
                     </select>
+                    <ApperIcon name="ChevronDown" className="w-4 h-4 text-slate-400" />
                 </div>
             </div>
             {/* Results Info */}
@@ -204,8 +207,10 @@ return (
                 <Button variant="ghost" onClick={() => setSearchQuery("")} className="mt-4">Show All Books
                                 </Button>
 </div> : <div className="max-w-6xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 pb-16 px-4">
-                    {filteredBooks.map(book => <BookCard key={book.Id} book={book} onDelete={handleDeleteBook} />)}
+<div className="max-w-7xl mx-auto px-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12 pb-20">
+                        {filteredBooks.map(book => <BookCard key={book.Id} book={book} onDelete={handleDeleteBook} />)}
+                    </div>
                 </div>
             </div>}
 </div>

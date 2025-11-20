@@ -159,12 +159,12 @@ const bookTitle = file.name.replace(/\.(pdf|epub)$/i, '');
   return (
     <div className={cn("space-y-4", className)}>
       {/* Drag and Drop Area */}
-      <div
+<div
 className={cn(
-          "relative border-2 border-dashed rounded-2xl p-10 text-center transition-all duration-300 cursor-pointer bg-gradient-to-br from-stone-50/50 to-gray-50/50 backdrop-blur-sm",
+          "relative border-2 border-dashed rounded-3xl p-12 text-center transition-all duration-300 cursor-pointer bg-gradient-to-br from-slate-50/60 to-gray-50/60 backdrop-blur-md",
           dragActive 
-            ? "border-accent bg-accent/10 scale-105 shadow-xl" 
-            : "border-stone-300/60 dark:border-gray-600/60 hover:border-accent hover:bg-accent/5 hover:shadow-lg",
+            ? "border-accent bg-accent/10 scale-105 shadow-2xl" 
+            : "border-slate-300/50 dark:border-gray-600/50 hover:border-accent hover:bg-accent/8 hover:shadow-xl",
           uploading && "pointer-events-none opacity-75"
         )}
         onDragEnter={handleDrag}
@@ -229,11 +229,11 @@ className={cn(
       {/* Alternative Upload Button */}
       {!uploading && (
 <div className="text-center">
-          <Button 
+<Button 
             onClick={() => fileInputRef.current?.click()}
             variant="default"
             size="lg"
-            className="gap-3 bg-gradient-to-r from-stone-600 to-stone-700 hover:from-stone-700 hover:to-stone-800 text-white border-0 shadow-lg hover:shadow-xl"
+            className="gap-3 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-800 hover:to-slate-900 text-white border-0 shadow-xl hover:shadow-2xl transform hover:scale-105"
           >
             <ApperIcon name="FolderOpen" className="w-5 h-5" />
             Choose Files

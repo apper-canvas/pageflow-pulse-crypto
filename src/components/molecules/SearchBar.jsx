@@ -4,25 +4,30 @@ import Input from "@/components/atoms/Input";
 
 const SearchBar = ({ value, onChange, placeholder = "Search books...", className }) => {
   return (
-<div className={`relative ${className || ''}`}>
-      <div className="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
-        <ApperIcon name="Search" className="w-5 h-5 text-stone-400 dark:text-dark-secondary" />
+<div className={`relative ${className || ''} flex justify-center`}>
+      <div className="relative w-full max-w-2xl">
+        <div className="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none z-10">
+          <ApperIcon name="Search" className="w-5 h-5 text-slate-400 dark:text-dark-secondary" />
+        </div>
+        <Input
+          type="text"
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="pl-16 pr-14 py-6 rounded-full border-0 bg-white/80 dark:bg-dark-surface/80 backdrop-blur-md focus:ring-4 focus:ring-slate-300/40 dark:focus:ring-slate-600/40 w-full shadow-2xl hover:shadow-3xl focus:shadow-3xl transition-all duration-300 text-lg placeholder:text-slate-400/70 placeholder:text-base font-medium focus:bg-white/90 dark:focus:bg-dark-surface/90 outline-none ring-1 ring-slate-200/50 focus:ring-slate-400/60"
+          style={{
+            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6)'
+          }}
+        />
+        {value && (
+          <button
+            onClick={() => onChange("")}
+            className="absolute inset-y-0 right-0 pr-6 flex items-center text-slate-400 hover:text-slate-600 dark:text-dark-secondary dark:hover:text-dark-primary transition-colors duration-200 z-10 hover:scale-110"
+          >
+            <ApperIcon name="X" className="w-4 h-4" />
+          </button>
+        )}
       </div>
-      <Input
-        type="text"
-        placeholder={placeholder}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="pl-16 pr-12 py-5 rounded-full border-2 border-stone-200/50 dark:border-gray-600/50 bg-white/70 dark:bg-dark-surface/70 backdrop-blur-sm focus:ring-4 focus:ring-stone-300/30 dark:focus:ring-stone-600/30 focus:border-stone-400/70 dark:focus:border-stone-500/70 w-full shadow-xl hover:shadow-2xl transition-all duration-300 text-base placeholder:text-stone-400/60 placeholder:text-sm"
-      />
-      {value && (
-        <button
-          onClick={() => onChange("")}
-          className="absolute inset-y-0 right-0 pr-5 flex items-center text-stone-400 hover:text-stone-600 dark:text-dark-secondary dark:hover:text-dark-primary transition-colors duration-200"
-        >
-          <ApperIcon name="X" className="w-4 h-4" />
-        </button>
-      )}
     </div>
   );
 };

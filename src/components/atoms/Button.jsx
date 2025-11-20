@@ -9,13 +9,13 @@ const Button = forwardRef(({
   disabled,
   ...props 
 }, ref) => {
-const baseStyles = "inline-flex items-center justify-center rounded-xl font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg";
+const baseStyles = "inline-flex items-center justify-center rounded-2xl font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl backdrop-blur-sm";
   
   const variants = {
-    default: "bg-gradient-to-r from-stone-300 to-stone-400 hover:from-stone-400 hover:to-stone-500 text-stone-700 hover:text-stone-800 focus:ring-stone-400/50",
+    default: "bg-gradient-to-r from-slate-500 to-slate-600 hover:from-slate-600 hover:to-slate-700 text-white focus:ring-slate-500/50",
     secondary: "bg-gradient-to-r from-secondary to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white focus:ring-secondary/50",
-    ghost: "bg-transparent hover:bg-stone-100/70 dark:hover:bg-gray-800/70 text-primary dark:text-dark-primary focus:ring-primary/50 shadow-none hover:shadow-md",
-    outline: "border-2 border-secondary hover:bg-secondary hover:text-white text-secondary focus:ring-secondary/50 bg-white/50 backdrop-blur-sm"
+    ghost: "bg-transparent hover:bg-slate-100/70 dark:hover:bg-gray-800/70 text-primary dark:text-dark-primary focus:ring-primary/50 shadow-none hover:shadow-lg",
+    outline: "border-2 border-secondary hover:bg-secondary hover:text-white text-secondary focus:ring-secondary/50 bg-white/60 backdrop-blur-md"
   };
 
   const sizes = {
@@ -32,8 +32,8 @@ const baseStyles = "inline-flex items-center justify-center rounded-xl font-medi
         baseStyles,
         variants[variant],
         sizes[size],
-        disabled && "transform-none hover:transform-none",
-        !disabled && "hover:scale-[1.02] active:scale-[0.98] hover:-translate-y-0.5",
+disabled && "transform-none hover:transform-none",
+        !disabled && "hover:scale-[1.05] active:scale-[0.95] hover:-translate-y-1",
         className
       )}
       {...props}

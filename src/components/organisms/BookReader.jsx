@@ -380,11 +380,11 @@ const updateSettings = async (newSettings) => {
               />
             </div>
           </div>
+</div>
         </div>
       )}
-
-{/* Navigation Arrows */}
-<button
+      {/* Navigation Arrows */}
+      <button
         onClick={goToPreviousPage}
         disabled={currentPage <= 1}
         className={`fixed left-0 top-0 bottom-0 w-16 sm:w-20 z-40 flex items-center justify-center reader-ui transition-opacity duration-300 ${
@@ -406,8 +406,8 @@ const updateSettings = async (newSettings) => {
         <ApperIcon name="ChevronRight" className="w-6 h-6 sm:w-8 sm:h-8 text-primary dark:text-dark-primary" />
       </button>
 
-{/* Main Content */}
-<div 
+      {/* Main Content */}
+      <div 
         id="reader-content"
         className="px-4 sm:px-6 py-16 sm:py-20 min-h-screen cursor-pointer select-text"
         onClick={resetControlsTimeout}
@@ -432,7 +432,6 @@ const updateSettings = async (newSettings) => {
             ))}
           </div>
         </div>
-</div>
       </div>
 
       {/* Bottom Controls */}
@@ -485,8 +484,6 @@ const updateSettings = async (newSettings) => {
         </div>
       </div>
 </div>
-      </div>
-    </div>
   );
 };
 

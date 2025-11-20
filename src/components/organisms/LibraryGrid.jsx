@@ -74,8 +74,9 @@ const loadBooks = async () => {
           return a.title.localeCompare(b.title);
         case "author":
 case "recentlyAdded":
-        return new Date(b.uploadedAt) - new Date(a.uploadedAt);
           return new Date(b.uploadedAt) - new Date(a.uploadedAt);
+        case "author":
+          return a.author.localeCompare(b.author);
         case "lastRead":
         default:
           const aLastRead = a.lastReadAt ? new Date(a.lastReadAt) : new Date(0);
